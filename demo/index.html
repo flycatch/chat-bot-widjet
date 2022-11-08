@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>Demo page of the widget</title>
+</head>
+<body>
+    <h1>Lorem ipsum dolor sit amet augue</h1>
+    <h2>Fusce gravida vehicula vestibulum tortor pulvinar</h2>
+    <p>Orci purus ante excepteur nunc nascetur rhoncus taciti ut. Ornare vitae sed. Amet suspendisse integer rutrum aliquet
+        venenatis. Nec sed nullam mauris magna vel pretium non tristique. Porta justo ac dictumst aliquip blandit. Libero
+        nec eu dolor eget volutpat. Magna nulla neque. Fames tempus lorem duis orci ipsum.</p>
+    <script>
+        (function (w,d,s="script",l="link",di="div",o="flyWidget",js,li,div,fjs) {
+            w['JS-Widget']=o;w[o] = w[o] || function () { (w[o].q = w[o].q || []).push(arguments) };
+            js = d.createElement(s),li = d.createElement(l),div= d.createElement(di), fjs = d.getElementsByTagName(s)[0];
+            div.classList.add("nicoraynaud-finance-widget"); 
+            li.href = "./widget/index.css"; li.rel = 'stylesheet';
+            js.id = o; js.src = "./widget/index.js"; 
+            js.async = 1; 
+            fjs.parentNode.insertBefore(div, fjs);
+            fjs.parentNode.insertBefore(li, fjs);
+            fjs.parentNode.insertBefore(js, fjs);
+        }(window, document));
+    </script>
+</body>
+</html>
