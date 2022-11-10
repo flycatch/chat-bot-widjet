@@ -1,109 +1,102 @@
-.minimise-box{
-    background-color:#005BAA ;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-    padding: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-
-
+.minimise-box {
+  background-color: #005baa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
-.chat-area{
-    height: 300px;
-    display: flex;
-    align-items: flex-start;
-    /* justify-content: flex-end; */
-    padding: 5px;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
+.chat-area {
+  height: 300px;
+  display: flex;
+  align-items: flex-start;
+  padding: 5px;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-.chat-area-receiver{
-
-    display: flex;
-    justify-content: flex-end;
-    background-color:white;
-    word-break: break-all;
-    padding: 5px;
-    border-radius: 10px 3px 10px 10px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+.chat-area-receiver {
+  display: flex;
+  justify-content: flex-end;
+  background-color: white;
+  word-break: break-all;
+  padding: 5px;
+  border-radius: 10px 3px 10px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.type-area{
-    display: flex;
-    padding: 5px;
-
+.type-area {
+  display: flex;
+  padding: 5px;
 }
-.receiver-div{
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
+.receiver-div {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-.text{
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 10px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    border-radius: 10px 10px 10px 0px;;
-    max-width: 90%;
-    width:  fit-content;
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
-    word-break: break-all;
-    background-color: #005BAA;
-    color: white;
-    margin-top: 5px;
-    animation: fade-in-out 0.3s ease-in-out both;
-    padding: 5px;
+.text {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 10px 10px 10px 0px;
+  max-width: 90%;
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  word-break: break-all;
+  background-color: #005baa;
+  color: white;
+  margin-top: 5px;
+  animation: fade-in-out 0.3s ease-in-out both;
+  padding: 5px;
 }
 
-.input{
-    border: 1px solid grey;
-    border-radius: 5px;
+.input {
+  border: 1px solid grey;
+  border-radius: 5px;
 }
-.chat-text{
-    color: white;
+.chat-text {
+  color: white;
 }
-.main-div{
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    border-radius:10px;
-    position: absolute;
-    bottom: 75px;
-    right: 27px;
-    width: 239px;
+.main-div {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 10px;
+  position: absolute;
+  bottom: 75px;
+  right: 27px;
+  width: 239px;
 }
-.sent-img{
-    width: 21px;
+.sent-img {
+  width: 21px;
 }
-.widget-icon{
-    position: relative;
-    cursor: pointer;
+.widget-icon {
+  position: relative;
+  cursor: pointer;
 }
-.button{
-    background-color: #005baa;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    width: 44px;
-    height: 43px;
-    margin-left: 5px;
-
+.button {
+  background-color: #005baa;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  width: 44px;
+  height: 43px;
+  margin-left: 5px;
 }
-.close-button{
-    cursor: pointer;
+.close-button {
+  cursor: pointer;
 }
 @keyframes fade-in-out {
-    0%{
-        transform: translate(50%);
-        opacity: 0;
-    }
-    100%{
-        transform: translate(0%);
-        opacity: 1;
-    }
-    
+  0% {
+    transform: translate(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0%);
+    opacity: 1;
+  }
 }
