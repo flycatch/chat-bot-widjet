@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { env_var } from "../../config/env";
 import { ChatBotConstants } from "../../constants";
 import { post } from "../../service/apiServices";
 import "./index.css";
@@ -56,7 +57,7 @@ const Chatbox = ({ setActive }) => {
       const postData = async () => {
         try {
           const ticketApi = await post(
-            "http://192.168.1.41:80/api/v1/ticket/generic-ticket",
+            `${env_var.BASE_URL}/ticket/generic-ticket`,
             apiData
           );
           const array = arrayChat;
@@ -77,7 +78,10 @@ const Chatbox = ({ setActive }) => {
   return (
     <div className="main-div">
       <div className="minimise-box">
-        <div className="chat-text">{ChatBotConstants.CHAT}</div>
+        <div className="chat-text">
+          <span><img className="chat-bot-icon" src="/assets/chatbot-icon.svg" alt=""/></span>
+          <div className="chat-text-bold">{ChatBotConstants.CHAT}</div>
+          </div>
         <div>
           <img
             className="close-button"

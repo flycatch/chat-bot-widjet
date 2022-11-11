@@ -1,5 +1,5 @@
 .minimise-box {
-  background-color: #005baa;
+  background-color: #E52A2B;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,7 +20,7 @@
 .chat-area-receiver {
   display: flex;
   justify-content: flex-end;
-  background-color: white;
+  background-color: #989898;
   word-break: break-all;
   padding: 5px;
   border-radius: 10px 3px 10px 10px;
@@ -50,7 +50,7 @@
   flex-wrap: wrap;
   height: auto;
   word-break: break-all;
-  background-color: #005baa;
+  background-color: #E52A2B;
   color: white;
   margin-top: 5px;
   animation: fade-in-out 0.3s ease-in-out both;
@@ -74,13 +74,15 @@
 }
 .sent-img {
   width: 21px;
+  transform: rotate(
+44deg);
 }
 .widget-icon {
   position: relative;
   cursor: pointer;
 }
 .button {
-  background-color: #005baa;
+  background-color: #E52A2B;
   border-radius: 50%;
   border: 1px solid transparent;
   width: 44px;
@@ -89,6 +91,13 @@
 }
 .close-button {
   cursor: pointer;
+}
+.chat-bot-icon{
+  width: 27px;
+}
+.chat-text-bold{
+  font-weight: 700;
+  font-size: 16px;
 }
 @keyframes fade-in-out {
   0% {
