@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { env_var } from "../../config/env";
 import { ChatBotConstants } from "../../constants";
-import { post } from "../../service/apiServices";
+import { post, put } from "../../service/apiServices";
 import "./index.css";
 
 const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
+  const [checkPhoto, setCheckPhoto] = useState(false);
+
+  const [fileDataObj, setFileDataObj] = useState([]);
   const [arrayChat, setArrayChat] = useState([
     {
       sender: ChatBotConstants.BOT,
@@ -19,6 +22,11 @@ const Chatbox = ({ setActive }) => {
       description: "",
     },
   ]);
+  const formDataConverter = (input) => {
+    const formData = new FormData();
+    formData.append("file", input[0]);
+    return formData;
+  };
 
   const handlesubmit = () => {
     const arr = arrayChat;
@@ -52,6 +60,13 @@ const Chatbox = ({ setActive }) => {
       });
   };
 
+  const imageApi = async (ticket_id) => {
+    const postData = await put(
+      `${env_var.BASE_URL}/ticket/${ticket_id}/attach`,
+      formDataConverter(fileDataObj)
+    );
+    return postData;
+  };
   useEffect(() => {
     if (arrayChat.length >= 5) {
       const postData = async () => {
@@ -66,7 +81,10 @@ const Chatbox = ({ setActive }) => {
             message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi.ticket_number}`,
           });
           setArrayChat([...array]);
-          return ticketApi;
+          if (ticketApi.ticket_id && checkPhoto) {
+            imageApi(ticketApi.ticket_id);
+            return ticketApi;
+          }
         } catch (err) {
           return err.response;
         }
@@ -79,9 +97,15 @@ const Chatbox = ({ setActive }) => {
     <div className="main-div">
       <div className="minimise-box">
         <div className="chat-text">
-          <span><img className="chat-bot-icon" src="/assets/chatbot-icon.svg" alt=""/></span>
+          <span>
+            <img
+              className="chat-bot-icon"
+              src="/assets/chatbot-icon.svg"
+              alt=""
+            />
+          </span>
           <div className="chat-text-bold">{ChatBotConstants.CHAT}</div>
-          </div>
+        </div>
         <div>
           <img
             className="close-button"
@@ -113,9 +137,23 @@ const Chatbox = ({ setActive }) => {
         }}
       >
         <div className="type-area">
+          {arrayChat.length >= 5 && (
+            <input
+              type="file"
+              id="myFile"
+              name="filename"
+              className="image-upload"
+              accept="image/*"
+              onChange={(e) => {
+                setFileDataObj(Array.from(e.target.files));
+                setCheckPhoto(true);
+              }}
+            />
+          )}
+
           <input
             className="input"
-            placeholder="Type a message "
+            placeholder={ChatBotConstants.TYPE_A_MESSAGE}
             value={chat}
             name="chat"
             type={"text"}
