@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { env_var } from "../../config/env";
 import { ChatBotConstants } from "../../constants";
 import { post, put } from "../../service/apiServices";
+import { TypingLoader } from "../Loader";
 import "./index.css";
 
 const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
   const [checkPhoto, setCheckPhoto] = useState(false);
-
+  const [loader, setloader] = useState(false);
   const [fileDataObj, setFileDataObj] = useState([]);
   const [arrayChat, setArrayChat] = useState([
     {
@@ -70,11 +71,13 @@ const Chatbox = ({ setActive }) => {
   useEffect(() => {
     if (arrayChat.length >= 5) {
       const postData = async () => {
+        setloader(true);
         try {
           const ticketApi = await post(
             `${env_var.BASE_URL}/ticket/generic-ticket`,
             apiData
           );
+          setloader(false);
           const array = arrayChat;
           array.push({
             sender: ChatBotConstants.BOT,
@@ -129,6 +132,7 @@ const Chatbox = ({ setActive }) => {
             </div>
           )
         )}
+        {loader ? <TypingLoader /> : null}
       </div>
 
       <form
