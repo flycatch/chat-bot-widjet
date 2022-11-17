@@ -1,20 +1,23 @@
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Chatbox from "./components/Chatbox";
 
 function App() {
+  const [active, setActive] = useState(false);
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {active ? <Chatbox setActive={setActive} /> : null}
+        <div>
+          <img
+            src="/assets/chat-icon.svg"
+            alt=""
+            className="widget-icon"
+            onClick={() => {
+              setActive(!active);
+            }}
+          ></img>
+        </div>
       </header>
     </div>
   );
