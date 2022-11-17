@@ -21,7 +21,7 @@
   display: flex;
   justify-content: flex-end;
   background-color: #989898;
-  word-break: break-all;
+  word-break: break-word;
   padding: 5px;
   border-radius: 10px 3px 10px 10px;
   /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
@@ -49,7 +49,7 @@
   display: flex;
   flex-wrap: wrap;
   height: auto;
-  word-break: break-all;
+  word-break: break-word;
   background-color: #e52a2b;
   color: white;
   margin-top: 5px;
@@ -74,8 +74,9 @@
   width: 420px;
 }
 .sent-img {
-  width: 21px;
+  width: 25px;
   transform: rotate(44deg);
+  padding-top: 3px;
 }
 .widget-icon {
   position: relative;
@@ -99,7 +100,46 @@
   font-weight: 700;
   font-size: 16px;
 }
+.image-upload {
+  display: none;
+}
+#custom-button {
+  padding: 6px;
+  color: white;
+  background-color: #e52a2b;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  margin-right: 5px;
+  vertical-align: middle;
+  height: 44px;
+}
+.button-text {
+  overflow-x: auto;
+  height: 36px;
+}
 
+#custom-button:hover {
+  background-color: #e52a2b;
+}
+
+#custom-text {
+  margin-left: 10px;
+  font-family: sans-serif;
+  color: #aaa;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.form-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.form-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  /* @apply h-full flex flex-col justify-between overflow-y-auto  */
+}
 
 @keyframes fade-in-out {
   0% {

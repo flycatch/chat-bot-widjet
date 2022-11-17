@@ -8,6 +8,8 @@ import "./index.css";
 const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
   const [checkPhoto, setCheckPhoto] = useState(false);
+  const [imageName, setImageName] = useState("");
+
   const [loader, setloader] = useState(false);
   const [fileDataObj, setFileDataObj] = useState([]);
   const [arrayChat, setArrayChat] = useState([
@@ -95,7 +97,9 @@ const Chatbox = ({ setActive }) => {
       postData();
     }
   }, [apiData]);
-
+  const uploadImageHandler = (idName) => {
+    document.getElementById(idName).click();
+  };
   return (
     <div className="main-div">
       <div className="minimise-box">
@@ -141,18 +145,35 @@ const Chatbox = ({ setActive }) => {
         }}
       >
         <div className="type-area">
-          {arrayChat.length >= 5 && (
-            <input
-              type="file"
-              id="myFile"
-              name="filename"
-              className="image-upload"
-              accept="image/*"
-              onChange={(e) => {
-                setFileDataObj(Array.from(e.target.files));
-                setCheckPhoto(true);
-              }}
-            />
+          {arrayChat.length === 5 && (
+            <div>
+              <input
+                type="file"
+                id="myFile"
+                name="filename"
+                className="image-upload"
+                hidden="hidden"
+                accept="image/*"
+                onChange={(e) => {
+                  setFileDataObj(Array.from(e.target.files));
+                  setImageName(Array.from(e.target.files)[0].name);
+                  setCheckPhoto(true);
+                }}
+              />
+              <div>
+                <button
+                  type="button"
+                  id="custom-button"
+                  onClick={() => uploadImageHandler("myFile")}
+                >
+                  <img src="/assets/upload-button.svg" alt="icon"></img>
+                  <span className="button-text form-scroll">
+                    {" "}
+                    {imageName ? imageName : ChatBotConstants.CHOOSE_A_FILE}
+                  </span>
+                </button>
+              </div>
+            </div>
           )}
 
           <input
