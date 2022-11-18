@@ -4,7 +4,8 @@ import "./index.css";
 export const TypingLoader = () => {
   return (
     <>
-      <div class="typing-loader"></div>
+      {/* <div class="typing-loader"></div> */}
+      <span class="loader"></span>
     </>
   );
 };

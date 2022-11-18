@@ -13,5 +13,7 @@ export const ChatBotConstants = {
   TICKET_NUMBER_RESPONSE: "Your issue submitted.This is your ticket number: ",
   CHAT: "Chatbot",
   TYPE_A_MESSAGE: "Type a message ",
-  CHOOSE_A_FILE: "CHOOSE A FILE",
+  CHOOSE_A_FILE: "No image added",
+  ONLINE: "Online",
+  TYPING: "typing...",
 };
