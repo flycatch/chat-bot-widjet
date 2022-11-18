@@ -95,6 +95,7 @@
   bottom: 75px;
   right: 27px;
   width: 377px;
+  animation: fade-in-out 0.3s ease-in-out both;
 }
 .sent-img {
   width: 20px;
