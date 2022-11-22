@@ -65,7 +65,7 @@
   margin-top: 5px;
   animation: fade-in-out 0.3s ease-in-out both;
   padding: 12px;
-  margin-left: 8px;
+  margin-left: 15px;
   line-height: 20px;
 }
 
@@ -132,6 +132,7 @@
 }
 .uplaod-img-icon {
   width: 20px;
+  display: flex;
 }
 .text-decorator {
   text-decoration: none;
