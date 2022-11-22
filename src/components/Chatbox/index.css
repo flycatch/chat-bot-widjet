@@ -35,14 +35,14 @@
   margin-right: 1.563rem;
   max-width: 15.625rem;
   line-height: 1.25rem;
-
-  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
 }
 .widjet_chatbot_flycatch_type-area {
   /* display: flex; */
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 1rem;
+  background-color: #ffffff;
+  border-radius: 0px 0px 20px 20px;
 }
 .widjet_chatbot_flycatch_receiver-div {
   display: flex;
@@ -69,7 +69,7 @@
   margin-top: 0.313rem;
   animation: fade-in-out 0.3s ease-in-out both;
   padding: 0.7rem;
-  margin-left: 1.938rem;
+  margin-left: 0.5rem;
   line-height: 1.25rem;
 }
 
@@ -117,7 +117,7 @@
 
   border: 1px solid transparent;
   width: 2.5rem;
-  height: 2.55rem;
+  /* height: 2.55rem; */
   /* margin-left: 5px; */
 }
 .widjet_chatbot_flycatch_close-button {
@@ -168,6 +168,9 @@
   height: 1.75rem;
   /* align-items: center; */
 }
+.widjet_chatbot_flycatch_send-message-icon {
+  display: flex;
+}
 .widjet_chatbot_flycatch_button-text-1 {
   color: #989898;
   font-size: 0.625rem;
@@ -187,7 +190,7 @@
   margin-top: 1.5rem;
 }
 .widjet_chatbot_flycatch_avatar {
-  width: 2rem;
+  /* width: 2rem; */
   padding-left: 1rem;
 }
 .widjet_chatbot_flycatch_input:focus-visible {
