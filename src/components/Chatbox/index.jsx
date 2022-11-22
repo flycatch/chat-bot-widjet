@@ -179,7 +179,7 @@ const Chatbox = ({ setActive }) => {
       <div className="widjet_chatbot_flycatch_chat-area" id="scrollTop">
         {arrayChat?.map((i, index) =>
           i.sender === "bot" ? (
-            <span className="widjet_chatbot_flycatch_avatar-chat">
+            <div className="widjet_chatbot_flycatch_avatar-chat">
               <div className="widjet_chatbot_flycatch_avatar">
                 <svg
                   width="41"
@@ -219,7 +219,7 @@ const Chatbox = ({ setActive }) => {
               <div key={index} className="widjet_chatbot_flycatch_text">
                 {i.message}
               </div>
-            </span>
+            </div>
           ) : (
             <div className="widjet_chatbot_flycatch_receiver-div">
               <div className="widjet_chatbot_flycatch_chat-area-receiver">
@@ -302,7 +302,7 @@ const Chatbox = ({ setActive }) => {
                 handlesubmit();
               }}
             >
-              <div>
+              <div className="widjet_chatbot_flycatch_send-message-icon">
                 {chat ? (
                   <svg
                     width="17"
