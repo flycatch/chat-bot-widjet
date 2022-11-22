@@ -16,9 +16,10 @@
             li.href = "./widget/index.css"; li.rel = 'stylesheet';
             js.id = o; js.src = "./widget/index.js"; 
             js.async = 1; 
-            fjs.parentNode.insertBefore(div, fjs);
-            fjs.parentNode.insertBefore(li, fjs);
-            fjs.parentNode.insertBefore(js, fjs);
+        
+        d.getElementsByTagName('body')[0].appendChild(div);
+        d.getElementsByTagName('body')[0].appendChild(li);
+        d.getElementsByTagName('body')[0].appendChild(js);
         }(window, document));
     </script>
 </body>

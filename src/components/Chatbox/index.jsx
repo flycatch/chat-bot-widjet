@@ -110,10 +110,10 @@ const Chatbox = ({ setActive }) => {
     document.getElementById(idName).click();
   };
   return (
-    <div className="main-div">
-      <div className="minimise-box">
-        <div className="chat-text">
-          <span className="chat-bot-icon">
+    <div className="widjet_chatbot_flycatch_main-div">
+      <div className="widjet_chatbot_flycatch_minimise-box">
+        <div className="widjet_chatbot_flycatch_chat-text">
+          <span className="widjet_chatbot_flycatch_chat-bot-icon">
             <svg
               width="41"
               height="41"
@@ -147,15 +147,17 @@ const Chatbox = ({ setActive }) => {
             </svg>
           </span>
           <div>
-            <div className="chat-text-bold">{ChatBotConstants.CHAT}</div>
-            <div className="online-txt">
+            <div className="widjet_chatbot_flycatch_chat-text-bold">
+              {ChatBotConstants.CHAT}
+            </div>
+            <div className="widjet_chatbot_flycatch_online-txt">
               {" "}
               {loader ? ChatBotConstants.TYPING : ChatBotConstants.ONLINE}
             </div>
           </div>
         </div>
         <div
-          className="close-button"
+          className="widjet_chatbot_flycatch_close-button"
           onClick={() => {
             setActive(false);
           }}
@@ -174,11 +176,11 @@ const Chatbox = ({ setActive }) => {
           </svg>
         </div>
       </div>
-      <div className="chat-area" id="scrollTop">
+      <div className="widjet_chatbot_flycatch_chat-area" id="scrollTop">
         {arrayChat?.map((i, index) =>
           i.sender === "bot" ? (
-            <span className="avatar-chat">
-              <div className="avatar">
+            <span className="widjet_chatbot_flycatch_avatar-chat">
+              <div className="widjet_chatbot_flycatch_avatar">
                 <svg
                   width="41"
                   height="41"
@@ -214,13 +216,15 @@ const Chatbox = ({ setActive }) => {
                   </defs>
                 </svg>
               </div>
-              <div key={index} className="text">
+              <div key={index} className="widjet_chatbot_flycatch_text">
                 {i.message}
               </div>
             </span>
           ) : (
-            <div className="receiver-div">
-              <div className="chat-area-receiver">{i.message}</div>
+            <div className="widjet_chatbot_flycatch_receiver-div">
+              <div className="widjet_chatbot_flycatch_chat-area-receiver">
+                {i.message}
+              </div>
             </div>
           )
         )}
@@ -232,14 +236,14 @@ const Chatbox = ({ setActive }) => {
           e.preventDefault();
         }}
       >
-        <div className="type-area">
+        <div className="widjet_chatbot_flycatch_type-area">
           {arrayChat.length === 5 && (
             <div>
               <input
                 type="file"
                 id="myFile"
                 name="filename"
-                className="image-upload"
+                className="widjet_chatbot_flycatch_image-upload"
                 hidden="hidden"
                 accept="image/*"
                 onChange={(e) => {
@@ -248,13 +252,13 @@ const Chatbox = ({ setActive }) => {
                   setCheckPhoto(true);
                 }}
               />
-              <div className="upload-button-div">
+              <div className="widjet_chatbot_flycatch_upload-button-div">
                 <button
                   type="button"
-                  id="custom-button"
+                  id="widjet_chatbot_flycatch_custom-button"
                   onClick={() => uploadImageHandler("myFile")}
                 >
-                  <div className="uplaod-img-icon">
+                  <div className="widjet_chatbot_flycatch_uplaod-img-icon">
                     <svg
                       width="32"
                       height="32"
@@ -268,18 +272,20 @@ const Chatbox = ({ setActive }) => {
                       />
                     </svg>
                   </div>
-                  <span className="button-text form-scroll"> </span>
+                  <span className="widjet_chatbot_flycatch_button-text form-scroll">
+                    {" "}
+                  </span>
                 </button>
-                <span className="button-text-1">
+                <span className="widjet_chatbot_flycatch_button-text-1">
                   {imageName ? imageName : ChatBotConstants.CHOOSE_A_FILE}
                 </span>
               </div>
             </div>
           )}
 
-          <div className="chat-area-with-button">
+          <div className="widjet_chatbot_flycatch_chat-area-with-button">
             <input
-              className="input"
+              className="widjet_chatbot_flycatch_input"
               placeholder={ChatBotConstants.TYPE_A_MESSAGE}
               value={chat}
               name="chat"
@@ -289,7 +295,7 @@ const Chatbox = ({ setActive }) => {
               }}
             ></input>
             <button
-              className="button"
+              className="widjet_chatbot_flycatch_button"
               type="submit"
               name="primary"
               onClick={() => {
@@ -307,7 +313,7 @@ const Chatbox = ({ setActive }) => {
                   >
                     <path
                       d="M2.13919 13.568C1.85028 13.688 1.57582 13.6616 1.3158 13.4888C1.05579 13.3166 0.925781 13.0655 0.925781 12.7354L0.925781 9.38292C0.925781 9.17291 0.983562 8.98541 1.09912 8.82041C1.21469 8.65541 1.37359 8.55041 1.57582 8.50541L7.85953 6.88539L1.57582 5.26538C1.37359 5.22038 1.21469 5.11538 1.09912 4.95037C0.983562 4.78537 0.925781 4.59787 0.925781 4.38787L0.925781 1.03534C0.925781 0.705334 1.05579 0.453932 1.3158 0.28113C1.57582 0.108928 1.85028 0.0828277 2.13919 0.202829L15.4866 6.05288C15.8478 6.21789 16.0283 6.49539 16.0283 6.88539C16.0283 7.2754 15.8478 7.5529 15.4866 7.7179L2.13919 13.568Z"
-                      fill="#E52A2B"
+                      fill="#080CCB"
                     />
                   </svg>
                 ) : (
@@ -327,10 +333,18 @@ const Chatbox = ({ setActive }) => {
               </div>
             </button>
           </div>
-          <div className="footer">
-            <span className="footer-text-1"> Powered by </span>
-            <a href="https://www.flycatchtech.com/" className="text-decorator">
-              <span className="footer-text-2">Flycatch</span>
+          <div className="widjet_chatbot_flycatch_footer">
+            <span className="widjet_chatbot_flycatch_footer-text-1">
+              {" "}
+              Powered by{" "}
+            </span>
+            <a
+              href="https://www.flycatchtech.com/"
+              className="widjet_chatbot_flycatch_text-decorator"
+            >
+              <span className="widjet_chatbot_flycatch_footer-text-2">
+                Flycatch
+              </span>
             </a>
           </div>
         </div>
