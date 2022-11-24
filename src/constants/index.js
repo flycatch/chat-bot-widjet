@@ -16,4 +16,6 @@ export const ChatBotConstants = {
   CHOOSE_A_FILE: "No image added",
   ONLINE: "Online",
   TYPING: "typing...",
+  POWERED_BY: "Powered by",
+  FLYCATCH: "Flycatch",
 };
