@@ -64,9 +64,9 @@ const Chatbox = ({ setActive }) => {
 
       arr.length >= 5 &&
         setApiData({
-          email: arrayChat[1].message,
-          title: arrayChat[3].message,
-          description: arrayChat[5].message,
+          email: arrayChat[1]?.message,
+          title: arrayChat[3]?.message,
+          description: arrayChat[5]?.message,
         });
       AlwaysScrollToBottom();
     }
@@ -179,7 +179,7 @@ const Chatbox = ({ setActive }) => {
       <div className="widjet_chatbot_flycatch_chat-area" id="scrollTop">
         {arrayChat?.map((i, index) =>
           i.sender === "bot" ? (
-            <div className="widjet_chatbot_flycatch_avatar-chat">
+            <div key={index} className="widjet_chatbot_flycatch_avatar-chat">
               <div className="widjet_chatbot_flycatch_avatar">
                 <svg
                   width="41"
@@ -216,9 +216,7 @@ const Chatbox = ({ setActive }) => {
                   </defs>
                 </svg>
               </div>
-              <div key={index} className="widjet_chatbot_flycatch_text">
-                {i.message}
-              </div>
+              <div className="widjet_chatbot_flycatch_text">{i.message}</div>
             </div>
           ) : (
             <div className="widjet_chatbot_flycatch_receiver-div">
@@ -336,14 +334,14 @@ const Chatbox = ({ setActive }) => {
           <div className="widjet_chatbot_flycatch_footer">
             <span className="widjet_chatbot_flycatch_footer-text-1">
               {" "}
-              Powered by{" "}
+              {ChatBotConstants.POWERED_BY}{" "}
             </span>
             <a
               href="https://www.flycatchtech.com/"
               className="widjet_chatbot_flycatch_text-decorator"
             >
               <span className="widjet_chatbot_flycatch_footer-text-2">
-                Flycatch
+                {ChatBotConstants.FLYCATCH}
               </span>
             </a>
           </div>
