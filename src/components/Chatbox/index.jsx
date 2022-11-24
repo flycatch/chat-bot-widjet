@@ -66,7 +66,7 @@ const Chatbox = ({ setActive }) => {
         setApiData({
           email: arrayChat[1]?.message,
           title: arrayChat[3]?.message,
-          description: arrayChat[5]?.message,
+          description: arrayChat[5] && arrayChat[5]?.message,
         });
       AlwaysScrollToBottom();
     }
