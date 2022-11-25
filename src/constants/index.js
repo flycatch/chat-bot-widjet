@@ -3,12 +3,12 @@ export const ChatBotConstants = {
   RECEIVER: "reciever",
   EMAIL_REQUEST: (
     <div>
-      Hi,
-      <br />I am Alpha,your personal assistant <br />
-      Please enter contact details{" "}
+      Welcome to Away Together!
+      <br />
+      What is your email address? <br />
     </div>
   ),
-  TITLE_REQUEST: "What is this issue regarding?",
+  TITLE_REQUEST: "Great, how may we assist you?",
   DESCRIPTION_REQUEST: "Please describe the issue",
   TICKET_NUMBER_RESPONSE: "Your issue submitted.This is your ticket number: ",
   CHAT: "Alpha",
