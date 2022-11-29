@@ -8,6 +8,7 @@ const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
   const [checkPhoto, setCheckPhoto] = useState(false);
   const [imageName, setImageName] = useState("");
+  const [validationEmail, setValidationEmail] = useState(false);
 
   const [loader, setloader] = useState(false);
   const [fileDataObj, setFileDataObj] = useState([]);
@@ -28,6 +29,11 @@ const Chatbox = ({ setActive }) => {
   const AlwaysScrollToBottom = () => {
     elementRef?.current?.scrollIntoView();
   };
+  const validateEmail = (chat) => {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(chat);
+  };
+
   useEffect(() => {
     AlwaysScrollToBottom();
   }, [arrayChat.length]);
@@ -287,17 +293,21 @@ const Chatbox = ({ setActive }) => {
               placeholder={ChatBotConstants.TYPE_A_MESSAGE}
               value={chat}
               name="chat"
-              type={"text"}
+              type={arrayChat.length === 1 ? "email" : "text"}
+              id="email"
               onChange={(e) => {
                 setChatData(e.target.value);
               }}
-            ></input>
+              onSubmit
+            />
+
             <button
               className="widjet_chatbot_flycatch_button"
               type="submit"
               name="primary"
               onClick={() => {
-                handlesubmit();
+                (validateEmail(chat) === true || arrayChat.length > 2) &&
+                  handlesubmit();
               }}
             >
               <div className="widjet_chatbot_flycatch_send-message-icon">

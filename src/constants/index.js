@@ -8,7 +8,7 @@ export const ChatBotConstants = {
       What is your email address? <br />
     </div>
   ),
-  TITLE_REQUEST: "Great, how may we assist you?",
+  TITLE_REQUEST: "Great, How may we assist you?",
   DESCRIPTION_REQUEST: "Please describe the issue",
   TICKET_NUMBER_RESPONSE: "Your issue submitted.This is your ticket number: ",
   CHAT: "Alpha",
