@@ -1,15 +1,15 @@
 const env = {
   development: {
-    API_URL: 'https://support.api.flycatchtech.com/api/v1',
-    BASE_URL: 'https://support.api.flycatchtech.com/api/v1',
+    API_URL: "https://support.away2gether.com/api/v1",
+    BASE_URL: "https://support.away2gether.com/api/v1",
   },
   production: {
-    API_URL: 'https://support.api.flycatchtech.com/api/v1',
-    BASE_URL: 'https://support.api.flycatchtech.com/api/v1',
+    API_URL: "https://support.away2gether.com/api/v1",
+    BASE_URL: "https://support.away2gether.com/api/v1",
   },
   test: {
-    API_URL: 'https://support.api.flycatchtech.com/api/v1',
-    BASE_URL: 'https://support.api.flycatchtech.com/api/v1',
+    API_URL: "https://support.away2gether.com/api/v1",
+    BASE_URL: "https://support.away2gether.com/api/v1",
   },
 };
 
