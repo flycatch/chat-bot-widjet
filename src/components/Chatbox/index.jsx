@@ -8,8 +8,7 @@ const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
   const [checkPhoto, setCheckPhoto] = useState(false);
   const [fileId, setFileId] = useState();
-  console.log("this is photo", checkPhoto);
-  console.log("");
+
   const [imageName, setImageName] = useState("");
   const [validationEmail, setValidationEmail] = useState(false);
 
