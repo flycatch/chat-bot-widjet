@@ -100,9 +100,12 @@ const Chatbox = ({ setActive }) => {
           const array = arrayChat;
           array.push({
             sender: ChatBotConstants.BOT,
-            message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi.ticket_number}`,
+            message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} `,
           });
-          setArrayChat([...array]);
+
+          return ticketApi;
+
+          // setArrayChat([...array]);
           // if (checkPhoto) {
           //   // console.log("this is image");
           //   imageApi();

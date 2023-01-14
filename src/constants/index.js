@@ -10,7 +10,7 @@ export const ChatBotConstants = {
   ),
   TITLE_REQUEST: "Great, How may we assist you?",
   DESCRIPTION_REQUEST: "Please describe the issue",
-  TICKET_NUMBER_RESPONSE: "Your issue submitted.This is your ticket number: ",
+  TICKET_NUMBER_RESPONSE: "Your issue submitted successfully ",
   CHAT: "Alpha",
   TYPE_A_MESSAGE: "Type here... ",
   CHOOSE_A_FILE: "No image added",
