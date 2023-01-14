@@ -7,6 +7,9 @@ import "./index.css";
 const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
   const [checkPhoto, setCheckPhoto] = useState(false);
+  const [fileId, setFileId] = useState();
+  console.log("this is photo", checkPhoto);
+  console.log("");
   const [imageName, setImageName] = useState("");
   const [validationEmail, setValidationEmail] = useState(false);
 
@@ -70,19 +73,22 @@ const Chatbox = ({ setActive }) => {
 
       arr.length >= 5 &&
         setApiData({
-          email: arrayChat[1]?.message,
+          submitter: arrayChat[1]?.message,
           title: arrayChat[3]?.message,
           description: arrayChat[5] && arrayChat[5]?.message,
+          ticketPriorityId: 1,
+          issueTypeId: 1,
         });
       AlwaysScrollToBottom();
     }
   };
 
-  const imageApi = async (ticket_id) => {
-    const postData = await put(
-      `${env_var.BASE_URL}/ticket/${ticket_id}/attach`,
+  const imageApi = async () => {
+    const postData = await post(
+      `${env_var.BASE_URL}/file`,
       formDataConverter(fileDataObj)
     );
+    setFileId(postData.data.fileId);
     return postData;
   };
   useEffect(() => {
@@ -90,10 +96,7 @@ const Chatbox = ({ setActive }) => {
       const postData = async () => {
         setloader(true);
         try {
-          const ticketApi = await post(
-            `${env_var.BASE_URL}/ticket/generic-ticket`,
-            apiData
-          );
+          const ticketApi = await post(`${env_var.BASE_URL}/ticket`, apiData);
           setloader(false);
           const array = arrayChat;
           array.push({
@@ -101,10 +104,11 @@ const Chatbox = ({ setActive }) => {
             message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi.ticket_number}`,
           });
           setArrayChat([...array]);
-          if (ticketApi.ticket_id && checkPhoto) {
-            imageApi(ticketApi.ticket_id);
-            return ticketApi;
-          }
+          // if (checkPhoto) {
+          //   // console.log("this is image");
+          //   imageApi();
+          //   return ticketApi;
+          // }
         } catch (err) {
           return err.response;
         }
@@ -241,12 +245,13 @@ const Chatbox = ({ setActive }) => {
         }}
       >
         <div className="widjet_chatbot_flycatch_type-area">
-          {arrayChat.length === 5 && (
+          {/* {arrayChat.length === 5 && (
             <div>
               <input
                 type="file"
                 id="myFile"
-                name="filename"
+                name="attachmentId"
+                required
                 className="widjet_chatbot_flycatch_image-upload"
                 hidden="hidden"
                 accept="image/*"
@@ -255,6 +260,7 @@ const Chatbox = ({ setActive }) => {
                   setImageName(Array.from(e.target.files)[0].name);
                   setCheckPhoto(true);
                 }}
+                onClick={() => setCheckPhoto(true)}
               />
               <div className="widjet_chatbot_flycatch_upload-button-div">
                 <button
@@ -285,7 +291,7 @@ const Chatbox = ({ setActive }) => {
                 </span>
               </div>
             </div>
-          )}
+          )} */}
 
           <div className="widjet_chatbot_flycatch_chat-area-with-button">
             <input
