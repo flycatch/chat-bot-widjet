@@ -7,8 +7,10 @@ import "./index.css";
 const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
   const [checkPhoto, setCheckPhoto] = useState(false);
-  const [fileId, setFileId] = useState();
+  const [isSubmit, setIsSubmit] = useState(false);
 
+  const [fileId, setFileId] = useState();
+  // console.log("this is statte", fileId);
   const [imageName, setImageName] = useState("");
   const [validationEmail, setValidationEmail] = useState(false);
 
@@ -41,7 +43,7 @@ const Chatbox = ({ setActive }) => {
   }, [arrayChat.length]);
   const formDataConverter = (input) => {
     const formData = new FormData();
-    formData.append("file", input[0]);
+    formData.append("files", input[0]);
     return formData;
   };
 
@@ -77,47 +79,93 @@ const Chatbox = ({ setActive }) => {
           description: arrayChat[5] && arrayChat[5]?.message,
           ticketPriorityId: 1,
           issueTypeId: 1,
+          statusId: 1,
+          // attachmentId: fileId ? fileId : null,
         });
+
+      if (arrayChat.length === 6) {
+        if (checkPhoto) {
+          const postData = async () => {
+            setloader(true);
+            try {
+              const postData = await post(
+                `${env_var.BASE_URL}/file`,
+                formDataConverter(fileDataObj)
+              );
+              const ticketApi = await post(`${env_var.BASE_URL}/ticket`, {
+                submitter: arrayChat[1]?.message,
+                title: arrayChat[3]?.message,
+                description: arrayChat[5] && arrayChat[5]?.message,
+                ticketPriorityId: 1,
+                issueTypeId: 1,
+                statusId: 1,
+
+                attachmentIds: postData[0]?.fileIds
+                  ? postData[0].fileIds
+                  : null,
+              });
+              setloader(false);
+              const array = arrayChat;
+              array.push({
+                sender: ChatBotConstants.BOT,
+                message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi[0]?.ticketNumber}`,
+              });
+
+              return ticketApi;
+            } catch (err) {
+              return err.response;
+            }
+          };
+          postData();
+          // }
+        } else {
+          const postData = async () => {
+            setloader(true);
+            try {
+              const ticketApi = await post(`${env_var.BASE_URL}/ticket`, {
+                submitter: arrayChat[1]?.message,
+                title: arrayChat[3]?.message,
+                description: arrayChat[5] && arrayChat[5]?.message,
+                ticketPriorityId: 1,
+                issueTypeId: 1,
+                statusId: 1,
+              });
+              setloader(false);
+              const array = arrayChat;
+              console.log("this is ticket api", ticketApi);
+              array.push({
+                sender: ChatBotConstants.BOT,
+                message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi[0]?.ticketNumber} `,
+              });
+
+              return ticketApi;
+            } catch (err) {
+              return err.response;
+            }
+          };
+          postData();
+        }
+      }
       AlwaysScrollToBottom();
     }
   };
+  useEffect(() => {
+    setApiData((prev) => ({
+      ...prev,
+      attachmentId: fileId,
+    }));
+  }, [fileId]);
 
   const imageApi = async () => {
     const postData = await post(
       `${env_var.BASE_URL}/file`,
       formDataConverter(fileDataObj)
     );
-    setFileId(postData.data.fileId);
+
+    setFileId(postData[0]?.fileId);
     return postData;
   };
-  useEffect(() => {
-    if (arrayChat.length === 6) {
-      const postData = async () => {
-        setloader(true);
-        try {
-          const ticketApi = await post(`${env_var.BASE_URL}/ticket`, apiData);
-          setloader(false);
-          const array = arrayChat;
-          array.push({
-            sender: ChatBotConstants.BOT,
-            message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} `,
-          });
 
-          return ticketApi;
-
-          // setArrayChat([...array]);
-          // if (checkPhoto) {
-          //   // console.log("this is image");
-          //   imageApi();
-          //   return ticketApi;
-          // }
-        } catch (err) {
-          return err.response;
-        }
-      };
-      postData();
-    }
-  }, [apiData]);
   const uploadImageHandler = (idName) => {
     document.getElementById(idName).click();
   };
@@ -247,7 +295,7 @@ const Chatbox = ({ setActive }) => {
         }}
       >
         <div className="widjet_chatbot_flycatch_type-area">
-          {/* {arrayChat.length === 5 && (
+          {arrayChat.length === 5 && (
             <div>
               <input
                 type="file"
@@ -293,7 +341,7 @@ const Chatbox = ({ setActive }) => {
                 </span>
               </div>
             </div>
-          )} */}
+          )}
 
           <div className="widjet_chatbot_flycatch_chat-area-with-button">
             <input
