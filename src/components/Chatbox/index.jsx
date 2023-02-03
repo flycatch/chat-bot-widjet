@@ -449,7 +449,7 @@ const Chatbox = ({ setActive }) => {
               className="widjet_chatbot_flycatch_input"
               placeholder={
                 arrayChat.length === 1
-                  ? "Please select an option from above"
+                  ? "Please choose a category"
                   : ChatBotConstants.TYPE_A_MESSAGE
               }
               disabled={arrayChat.length === 1 ? true : false}
@@ -510,6 +510,8 @@ const Chatbox = ({ setActive }) => {
               {ChatBotConstants.POWERED_BY}{" "}
             </span>
             <a
+              target="_blank"
+              rel="noopener noreferrer"
               href="https://www.flycatchtech.com/"
               className="widjet_chatbot_flycatch_text-decorator"
             >
