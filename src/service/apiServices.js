@@ -13,3 +13,9 @@ export const put = async function (url, body) {
     return resp.data.data;
   } catch (err) {}
 };
+export const get = async function (url, body) {
+  try {
+    const resp = await axios.get(url, body);
+    return resp.data.data;
+  } catch (err) {}
+};

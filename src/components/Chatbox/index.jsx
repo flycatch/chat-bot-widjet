@@ -1,16 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { env_var } from "../../config/env";
 import { ChatBotConstants } from "../../constants";
-import { post, put } from "../../service/apiServices";
+import { get, post, put } from "../../service/apiServices";
+import { TypingLoader } from "../Loader";
 import "./index.css";
 
 const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
+
+  const [tag, setTag] = useState("");
+
   const [checkPhoto, setCheckPhoto] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
 
   const [fileId, setFileId] = useState();
-  // console.log("this is statte", fileId);
+  const [ticketTypeList, setTicketTypeList] = useState();
+
   const [imageName, setImageName] = useState("");
   const [validationEmail, setValidationEmail] = useState(false);
 
@@ -29,6 +34,7 @@ const Chatbox = ({ setActive }) => {
       description: "",
     },
   ]);
+
   const elementRef = useRef();
   const AlwaysScrollToBottom = () => {
     elementRef?.current?.scrollIntoView();
@@ -47,13 +53,15 @@ const Chatbox = ({ setActive }) => {
     return formData;
   };
 
-  const handlesubmit = () => {
-    if (chat !== "") {
+  const handleSubmit = () => {
+    if (arrayChat.length >= 2) {
       const arr = arrayChat;
-      arr.push({
-        sender: ChatBotConstants.RECEIVER,
-        message: chat,
-      });
+      if (chat !== "") {
+        arr.push({
+          sender: ChatBotConstants.RECEIVER,
+          message: chat,
+        });
+      }
       switch (arr.length) {
         case 2:
           arr.push({
@@ -67,6 +75,12 @@ const Chatbox = ({ setActive }) => {
             message: ChatBotConstants.DESCRIPTION_REQUEST,
           });
           break;
+        case 6:
+          arr.push({
+            sender: ChatBotConstants.BOT,
+            message: ChatBotConstants.EMAIL,
+          });
+          break;
         default:
       }
       setArrayChat(arr);
@@ -78,12 +92,12 @@ const Chatbox = ({ setActive }) => {
           title: arrayChat[3]?.message,
           description: arrayChat[5] && arrayChat[5]?.message,
           ticketPriorityId: 1,
-          issueTypeId: 1,
+          issueTypeId: tag,
           statusId: 1,
           // attachmentId: fileId ? fileId : null,
         });
 
-      if (arrayChat.length === 6) {
+      if (arrayChat.length === 8) {
         if (checkPhoto) {
           const postData = async () => {
             setloader(true);
@@ -93,11 +107,11 @@ const Chatbox = ({ setActive }) => {
                 formDataConverter(fileDataObj)
               );
               const ticketApi = await post(`${env_var.BASE_URL}/ticket`, {
-                submitter: arrayChat[1]?.message,
+                submitter: arrayChat[7]?.message,
                 title: arrayChat[3]?.message,
                 description: arrayChat[5] && arrayChat[5]?.message,
                 ticketPriorityId: 1,
-                issueTypeId: 1,
+                issueTypeId: tag,
                 statusId: 1,
 
                 attachmentIds: postData[0]?.fileIds
@@ -108,7 +122,20 @@ const Chatbox = ({ setActive }) => {
               const array = arrayChat;
               array.push({
                 sender: ChatBotConstants.BOT,
-                message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi[0]?.ticketNumber}`,
+                message: (
+                  <div>
+                    <span>{ChatBotConstants.TICKET_LINK}</span>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={`http://143.244.183.63:8001/ticket/${ticketApi[0]?.ticketNumber?.slice(
+                        3
+                      )}`}
+                    >
+                      {ticketApi[0]?.ticketNumber}
+                    </a>
+                  </div>
+                ),
               });
 
               return ticketApi;
@@ -123,19 +150,32 @@ const Chatbox = ({ setActive }) => {
             setloader(true);
             try {
               const ticketApi = await post(`${env_var.BASE_URL}/ticket`, {
-                submitter: arrayChat[1]?.message,
+                submitter: arrayChat[7]?.message,
                 title: arrayChat[3]?.message,
                 description: arrayChat[5] && arrayChat[5]?.message,
                 ticketPriorityId: 1,
-                issueTypeId: 1,
+                issueTypeId: tag,
                 statusId: 1,
               });
               setloader(false);
               const array = arrayChat;
-              console.log("this is ticket api", ticketApi);
+
               array.push({
                 sender: ChatBotConstants.BOT,
-                message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi[0]?.ticketNumber} `,
+                message: (
+                  <div>
+                    <span>{ChatBotConstants.TICKET_LINK}</span>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={`http://143.244.183.63:8001/ticket/${ticketApi[0]?.ticketNumber?.slice(
+                        3
+                      )}`}
+                    >
+                      {ticketApi[0]?.ticketNumber}
+                    </a>
+                  </div>
+                ),
               });
 
               return ticketApi;
@@ -169,6 +209,21 @@ const Chatbox = ({ setActive }) => {
   const uploadImageHandler = (idName) => {
     document.getElementById(idName).click();
   };
+
+  const getTicketType = async () => {
+    const resp = await get(`${env_var.BASE_URL}/issue-type`);
+    setTicketTypeList(resp[0]?.data);
+  };
+  useEffect(() => {
+    getTicketType();
+  }, []);
+  useEffect(() => {
+    if (arrayChat.length === 2) {
+      handleSubmit();
+    }
+  }, [arrayChat.length === 2]);
+
+  useEffect(() => {}, [tag]);
   return (
     <div className="widjet_chatbot_flycatch_main-div">
       <div className="widjet_chatbot_flycatch_minimise-box">
@@ -236,56 +291,102 @@ const Chatbox = ({ setActive }) => {
           </svg>
         </div>
       </div>
-      <div className="widjet_chatbot_flycatch_chat-area" id="scrollTop">
-        {arrayChat?.map((i, index) =>
-          i.sender === "bot" ? (
-            <div key={index} className="widjet_chatbot_flycatch_avatar-chat">
-              <div className="widjet_chatbot_flycatch_avatar">
-                <svg
-                  width="41"
-                  height="41"
-                  viewBox="0 0 41 41"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="20.5"
-                    cy="20.5"
-                    r="20"
-                    fill="url(#pattern0)"
-                    stroke="#779CBF"
-                  />
-                  <defs>
-                    <pattern
-                      id="pattern0"
-                      patternContentUnits="objectBoundingBox"
-                      width="1"
-                      height="1"
-                    >
-                      <use
-                        href="#image0_4630_38774"
-                        transform="scale(0.0133333)"
-                      />
-                    </pattern>
-                    <image
-                      id="image0_4630_38774"
-                      width="75"
-                      height="75"
-                      href="data:image/png;base64,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"
-                    />
-                  </defs>
-                </svg>
-              </div>
-              <div className="widjet_chatbot_flycatch_text">{i.message}</div>
-            </div>
-          ) : (
-            <div className="widjet_chatbot_flycatch_receiver-div">
-              <div className="widjet_chatbot_flycatch_chat-area-receiver">
-                {i.message}
-              </div>
-            </div>
-          )
+      {arrayChat
+        ?.slice(0, 1)
+        .map(
+          (i, index) =>
+            arrayChat.length === 1 && (
+              <div className="heading-bot-text">{i.message}</div>
+            )
         )}
+      <div className="widjet_chatbot_flycatch_chat-area" id="scrollTop">
+        {arrayChat?.length === 1 &&
+          (!ticketTypeList ? (
+            <TypingLoader />
+          ) : (
+            <div className="suggest">
+              {ticketTypeList?.map((item, index) => (
+                <div className="">
+                  <button
+                    className="suggest-item"
+                    name="tags"
+                    id={item?.id}
+                    value={item?.title}
+                    onClick={(e) => {
+                      setTag(e.target.id);
+
+                      // setChatData(e.target.value);
+                      arrayChat.push({
+                        sender: ChatBotConstants.RECEIVER,
+                        message: e.target.value,
+                      });
+                      handleSubmit();
+
+                      setApiData((prev) => ({
+                        ...prev,
+                        issueTypeId: e.target.id,
+                      }));
+                    }}
+                  >
+                    {item.title}
+                  </button>
+                </div>
+              ))}
+            </div>
+          ))}
+        {arrayChat.length > 2 &&
+          arrayChat?.map((i, index) =>
+            i.sender === "bot" ? (
+              // arrayChat?.length > 2 && (
+              <div key={index} className="widjet_chatbot_flycatch_avatar-chat">
+                <div className="widjet_chatbot_flycatch_avatar">
+                  <svg
+                    width="41"
+                    height="41"
+                    viewBox="0 0 41 41"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="20.5"
+                      cy="20.5"
+                      r="20"
+                      fill="url(#pattern0)"
+                      stroke="#779CBF"
+                    />
+                    <defs>
+                      <pattern
+                        id="pattern0"
+                        patternContentUnits="objectBoundingBox"
+                        width="1"
+                        height="1"
+                      >
+                        <use
+                          href="#image0_4630_38774"
+                          transform="scale(0.0133333)"
+                        />
+                      </pattern>
+                      <image
+                        id="image0_4630_38774"
+                        width="75"
+                        height="75"
+                        href="data:image/png;base64,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"
+                      />
+                    </defs>
+                  </svg>
+                </div>
+                <div className="widjet_chatbot_flycatch_text">{i.message}</div>
+              </div>
+            ) : (
+              // )
+              // )
+              <div className="widjet_chatbot_flycatch_receiver-div">
+                <div className="widjet_chatbot_flycatch_chat-area-receiver">
+                  {i.message}
+                </div>
+              </div>
+            )
+          )}
         <div ref={elementRef} />
       </div>
 
@@ -346,10 +447,15 @@ const Chatbox = ({ setActive }) => {
           <div className="widjet_chatbot_flycatch_chat-area-with-button">
             <input
               className="widjet_chatbot_flycatch_input"
-              placeholder={ChatBotConstants.TYPE_A_MESSAGE}
+              placeholder={
+                arrayChat.length === 1
+                  ? "Please select an option from above"
+                  : ChatBotConstants.TYPE_A_MESSAGE
+              }
+              disabled={arrayChat.length === 1 ? true : false}
               value={chat}
               name="chat"
-              type={arrayChat.length === 1 ? "email" : "text"}
+              type={arrayChat.length === 7 ? "email" : "text"}
               id="email"
               onChange={(e) => {
                 setChatData(e.target.value);
@@ -362,8 +468,9 @@ const Chatbox = ({ setActive }) => {
               type="submit"
               name="primary"
               onClick={() => {
-                (validateEmail(chat) === true || arrayChat.length > 2) &&
-                  handlesubmit();
+                (validateEmail(arrayChat.length === 7 && chat) ||
+                  arrayChat.length <= 6) &&
+                  handleSubmit();
               }}
             >
               <div className="widjet_chatbot_flycatch_send-message-icon">

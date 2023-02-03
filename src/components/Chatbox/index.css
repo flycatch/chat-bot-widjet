@@ -250,3 +250,28 @@
     opacity: 1;
   }
 }
+.suggest {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  justify-content: center;
+  width: 100%;
+}
+.suggest-item {
+  padding: 5px;
+  border: 1px solid #080ccb;
+  color: #080ccb;
+  cursor: pointer;
+}
+.suggest-item:hover {
+  color: white;
+  background-color: #080ccb;
+}
+.heading-bot-text {
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+}
+.Hi-tag {
+  font-weight: 600;
+  font-size: 20px;
+}
