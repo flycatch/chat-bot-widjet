@@ -5,8 +5,9 @@ export const ChatBotConstants = {
   RECEIVER: "reciever",
   EMAIL_REQUEST: (
     <div>
-      <span className="Hi-tag">Hi !</span>
-      <br />I am Alpha, your personal assistant to help you with{" "}
+      {/* <span className="Hi-tag">Hi !</span> */}
+      {/* <br /> */}
+      I'M Alpha, your personal assistant to help you with{" "}
       <a
         target="_blank"
         rel="noopener noreferrer"
