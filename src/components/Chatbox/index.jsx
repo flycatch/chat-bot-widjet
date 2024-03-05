@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { env_var } from "../../config/env";
-import { ChatBotConstants } from "../../constants";
-import { post, put } from "../../service/apiServices";
 import "./index.css";
+
+import React, { useEffect, useRef, useState } from "react";
+import { post, put } from "../../service/apiServices";
+
+import { ChatBotConstants } from "../../constants";
+import { env_var } from "../../config/env";
 
 const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
@@ -90,7 +92,7 @@ const Chatbox = ({ setActive }) => {
       const postData = async () => {
         setloader(true);
         try {
-          const ticketApi = await post(
+          const [ticketApi] = await post(
             `${env_var.BASE_URL}/ticket/generic-ticket`,
             apiData
           );
@@ -98,11 +100,11 @@ const Chatbox = ({ setActive }) => {
           const array = arrayChat;
           array.push({
             sender: ChatBotConstants.BOT,
-            message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi.ticket_number}`,
+            message: `${ChatBotConstants.TICKET_NUMBER_RESPONSE} ${ticketApi.ticketNumber}`,
           });
           setArrayChat([...array]);
-          if (ticketApi.ticket_id && checkPhoto) {
-            imageApi(ticketApi.ticket_id);
+          if (ticketApi.ticketId && checkPhoto) {
+            imageApi(ticketApi.ticketId);
             return ticketApi;
           }
         } catch (err) {
