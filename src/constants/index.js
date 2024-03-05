@@ -3,7 +3,7 @@ export const ChatBotConstants = {
   RECEIVER: "reciever",
   EMAIL_REQUEST: (
     <div>
-      Welcome to Away Together!
+      Welcome to Flycatch!
       <br />
       What is your email address? <br />
     </div>
