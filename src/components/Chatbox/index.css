@@ -24,6 +24,26 @@
   /* flex: 1 1 0%;
   align-self: stretch; */
 }
+
+.suggest {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+  width: 100%;
+}
+.suggest-item {
+  padding-block: 10px;
+  padding-inline: 10px;
+  border: 1px solid #080ccb;
+  border-radius: 4px;
+  color: #080ccb;
+  cursor: pointer;
+}
+.suggest-item:hover {
+  color: white;
+  background-color: #080ccb;
+}
 .widjet_chatbot_flycatch_chat-area-receiver {
   display: flex;
   justify-content: flex-end;
