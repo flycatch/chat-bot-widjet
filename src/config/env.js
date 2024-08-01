@@ -1,15 +1,27 @@
 const env = {
+  // development: {
+  //   API_URL: "https://support-api.flycatchtech.in/api/v1",
+  //   BASE_URL: "https://support-api.flycatchtech.in/api/v1",
+  // },
+  // production: {
+  //   API_URL: "https://support-api.flycatchtech.in/api/v1",
+  //   BASE_URL: "https://support-api.flycatchtech.in/api/v1",
+  // },
+  // test: {
+  //   API_URL: "https://support-api.flycatchtech.in/api/v1",
+  //   BASE_URL: "https://support-api.flycatchtech.in/api/v1",
+  // },
   development: {
-    API_URL: "https://support-api.flycatchtech.in/api/v1",
-    BASE_URL: "https://support-api.flycatchtech.in/api/v1",
+    API_URL: "http://localhost:8118/api/v1",
+    BASE_URL: "http://localhost:8118",
   },
   production: {
-    API_URL: "https://support-api.flycatchtech.in/api/v1",
-    BASE_URL: "https://support-api.flycatchtech.in/api/v1",
+    API_URL: "http://localhost:8118/api/v1",
+    BASE_URL: "http://localhost:8118",
   },
   test: {
-    API_URL: "https://support-api.flycatchtech.in/api/v1",
-    BASE_URL: "https://support-api.flycatchtech.in/api/v1",
+    API_URL: "http://localhost:8118/api/v1",
+    BASE_URL: "http://localhost:8118",
   },
 };
 
