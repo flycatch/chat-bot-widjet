@@ -18,7 +18,7 @@ export const ChatBotConstants = {
       <br />
     </div>
   ),
-  TITLE_REQUEST: "Great, What is the subject or issue you’re experiencing?",
+  TITLE_REQUEST: "Great, What is the subject or issue you are experiencing?",
   USER_NAME_REQUEST: "Could you also please provide your full name?",
   EMAIL_REQUEST: "What is your email address?",
   DESCRIPTION_REQUEST: "Please describe the issue",
