@@ -1,7 +1,7 @@
 import "./index.css";
 
 import React, { useEffect, useRef, useState } from "react";
-import { post, put } from "../../service/apiServices";
+import { get,post, put } from "../../service/apiServices";
 
 import { ChatBotConstants } from "../../constants";
 import { env_var } from "../../config/env";
@@ -10,7 +10,9 @@ const Chatbox = ({ setActive }) => {
   const [chat, setChatData] = useState("");
   const [checkPhoto, setCheckPhoto] = useState(false);
   const [imageName, setImageName] = useState("");
-  const [userSelection, setUserSelection] = useState("")
+  const [userSelection, setUserSelection] = useState("");
+  const [faqs,setFaqs] = useState([]);
+  const [selectedFaq, setSelectedFaq] = useState(null)
   const [validationEmail, setValidationEmail] = useState(false);
 
   const [loader, setloader] = useState(false);
@@ -38,8 +40,17 @@ const Chatbox = ({ setActive }) => {
   };
 
   useEffect(() => {
+    const fetchFAQs = async() => {
+      const {data} = await get(`${env_var.API_V2_URL}/public/faqs`)
+      setFaqs(data);
+    }
+    fetchFAQs();
+  },[])
+
+  useEffect(() => {
     AlwaysScrollToBottom();
   }, [arrayChat.length]);
+
   const formDataConverter = (input) => {
     const formData = new FormData();
     formData.append("file", input[0]);
@@ -91,6 +102,45 @@ const Chatbox = ({ setActive }) => {
         });
       AlwaysScrollToBottom();
     }
+  };
+
+  const generateSecondBotMessage = (event) => {
+    const {id, value} = event.target;
+    setUserSelection(id);
+    const newMessages = [
+      {
+        sender: ChatBotConstants.RECEIVER,
+        message: value,
+      },
+    ];
+    if(id === ChatBotConstants.FAQ_RESOLUTION_OPTIONS[0].id) {
+      newMessages.push({
+        sender: ChatBotConstants.BOT,
+        message: ChatBotConstants.THANK_YOU,
+      });
+      setTimeout(() => setActive(active => !active),2500) 
+    };
+    if (id === ChatBotConstants.OPTIONS[1].id) {
+      newMessages.push({
+        sender: ChatBotConstants.BOT,
+        message: ChatBotConstants.EMAIL_REQUEST,
+      });
+    } else if (id === ChatBotConstants.OPTIONS[0].id) {
+        const faqMessages = faqs.map(faq => (
+          {
+            id: faq._id,
+            sender: ChatBotConstants.BOT,
+            message:faq.question,
+            answer: faq.answer
+          }
+        ))
+        const confirmationMessage = {
+          sender: ChatBotConstants.BOT,
+          message: ChatBotConstants.FAQ_CONFIRMATION
+        }
+        newMessages.push(...faqMessages, confirmationMessage);
+    }
+    setArrayChat((messages) => [...messages, ...newMessages]);
   };
 
   const imageApi = async (ticket_id) => {
@@ -208,7 +258,7 @@ const Chatbox = ({ setActive }) => {
       <div className="widjet_chatbot_flycatch_chat-area" id="scrollTop">
         {arrayChat?.map((i, index) =>
           i.sender === "bot" ? (
-            <div key={index}>
+            <div key={i.id ?? index}>
               <div className="widjet_chatbot_flycatch_avatar-chat">
                 <div className="widjet_chatbot_flycatch_avatar">
                   <svg
@@ -246,30 +296,49 @@ const Chatbox = ({ setActive }) => {
                     </defs>
                   </svg>
                 </div>
-                <div className="widjet_chatbot_flycatch_text">{i.message}</div>
+                <div className="widjet_chatbot_flycatch_text">
+                  {i.answer ? (
+                    <>
+                      <div className="widjet_chatbot_flycatch_faq">{i.message}</div>
+                      {selectedFaq === i.id && <div className="widjet_chatbot_flycatch_faq_answer ">{i.answer}</div>}
+                      <div
+                        onClick={() =>
+                          setSelectedFaq((prev) =>
+                            prev === i.id ? null : i.id
+                          )
+                        }
+                        className="widjet_chatbot_flycatch_faq_toggle"
+                      >
+                        {`Show ${selectedFaq === i.id ? "less" : "more"}`}
+                      </div>
+                    </>
+                  ): <div>{i.message}</div>}
+                </div>
               </div>
-              {arrayChat.length === 1 ? (
+              {index === 0 ? (
                 <div className="suggest">
-                  {ChatBotConstants.OPTIONS?.map((item, index) => (
+                  {ChatBotConstants.OPTIONS?.map((item) => (
                     <button
                       className="suggest-item"
                       name="tags"
                       id={item?.id}
                       value={item?.title}
-                      onClick={(e) => {
-                        setUserSelection(e.target.id);
-                        const newMessages = [
-                          {
-                            sender: ChatBotConstants.RECEIVER,
-                            message: e.target.value,
-                          },
-                          {
-                            sender: ChatBotConstants.BOT,
-                            message: ChatBotConstants.EMAIL_REQUEST,
-                          }
-                        ];
-                        setArrayChat(messages => [...messages, ...newMessages])
-                      }}
+                      onClick={arrayChat.length === 1 ? generateSecondBotMessage : null}
+                    >
+                      {item.title}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+              { index=== (3 + faqs.length) -1 ? (
+                <div className="suggest">
+                  {ChatBotConstants.FAQ_RESOLUTION_OPTIONS?.map((item) => (
+                    <button
+                      className="suggest-item"
+                      name="tags"
+                      id={item?.id}
+                      value={item?.title}
+                      onClick={arrayChat.length === (3 + faqs.length) ? generateSecondBotMessage : null}
                     >
                       {item.title}
                     </button>
@@ -360,7 +429,8 @@ const Chatbox = ({ setActive }) => {
               type="submit"
               name="primary"
               onClick={() => {
-                (arrayChat.length > 4 || (arrayChat.length === 3 && validateEmail(chat) === true)) &&
+                (userSelection === ChatBotConstants.OPTIONS[1].id && (arrayChat.length > 4 ||
+                  (arrayChat.length === 3 && validateEmail(chat) === true))) &&
                   handleSubmit();
               }}
             >
