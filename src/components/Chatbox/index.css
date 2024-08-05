@@ -80,7 +80,7 @@
   padding-bottom: 0.625rem;
   /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
   border-radius: 0px 10px 10px 10px;
-  max-width: 17.438rem;
+  max-width: 14rem;
   width: fit-content;
   display: flex;
   flex-wrap: wrap;
@@ -94,6 +94,23 @@
   margin-left: 0.5rem;
   line-height: 1.25rem;
   font-size: 0.875rem;
+}
+
+.widjet_chatbot_flycatch_faq {
+  font-weight: 500;
+}
+
+.widjet_chatbot_flycatch_faq_answer {
+  /* border-top: 1px solid #666; */
+  margin-top: 16px;
+  /* padding-top: 8px; */
+}
+
+.widjet_chatbot_flycatch_faq_toggle {
+  align-self: flex-end;
+  font-style: italic;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .widjet_chatbot_flycatch_input {

@@ -13,14 +13,17 @@ const env = {
   // },
   development: {
     API_URL: "http://localhost:8118/api/v1",
+    API_V2_URL: "https://support.flycatchtech.in/api/v2",
     BASE_URL: "http://localhost:8118",
   },
   production: {
     API_URL: "http://localhost:8118/api/v1",
+    API_V2_URL: "https://support.flycatchtech.in/api/v2",
     BASE_URL: "http://localhost:8118",
   },
   test: {
     API_URL: "http://localhost:8118/api/v1",
+    API_V2_URL: "https://support.flycatchtech.in/api/v2",
     BASE_URL: "http://localhost:8118",
   },
 };

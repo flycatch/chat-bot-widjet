@@ -18,7 +18,7 @@ export const ChatBotConstants = {
       <br />
     </div>
   ),
-  TITLE_REQUEST: "Great, What is the subject or issue you’re experiencing?",
+  TITLE_REQUEST: "Great, What is the subject or issue you are experiencing?",
   USER_NAME_REQUEST: "Could you also please provide your full name?",
   EMAIL_REQUEST: "What is your email address?",
   DESCRIPTION_REQUEST: "Please describe the issue",
@@ -55,5 +55,17 @@ export const ChatBotConstants = {
       title: "Report Issue",
     },
   ],
-  ERROR_RESPONSE:"There has been an issue creating your ticket"
+  ERROR_RESPONSE:"There has been an issue creating your ticket",
+  FAQ_CONFIRMATION:"Is your query resolved?",
+  THANK_YOU:"Thank you for using the chat bot",
+  FAQ_RESOLUTION_OPTIONS: [
+    {
+      id: "RESOLVED",
+      title: "Yes",
+    },
+    {
+      id: "REPORT-ISSUE",
+      title: "No,Report Issue",
+    },
+  ],
 };
