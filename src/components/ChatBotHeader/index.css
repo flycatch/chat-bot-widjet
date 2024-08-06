@@ -1,0 +1,40 @@
+.widjet_chatbot_flycatch_minimise-box {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4.563rem;
+  padding: 0.313rem;
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1.25rem;
+}
+
+.widjet_chatbot_flycatch_chat-text {
+  color: #1d1d1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  padding-left: 1rem;
+}
+
+.widjet_chatbot_flycatch_chat-text-bold {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.widjet_chatbot_flycatch_chat-bot-icon {
+  width: 2.563rem;
+}
+
+.widjet_chatbot_flycatch_close-button {
+  cursor: pointer;
+  padding-right: 1.313rem;
+}
+
+.widjet_chatbot_flycatch_online-txt {
+  color: #989898;
+  font-size: 0.625rem;
+  padding-top: 0.188rem;
+  font-weight: 400;
+}

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "./App.css";
 import Chatbox from "./components/Chatbox";
+import ChatBot from "./components/ChatBot";
 
 function App() {
   const [active, setActive] = useState(false);
   return (
     <div className="widjet_chatbot_flycatch_App">
       <header className="App-header">
-        {active ? <Chatbox setActive={setActive} /> : null}
+        {active ? <ChatBot setActive={setActive} /> : null}
         <div
           className="widjet_chatbot_flycatch_widget-icon"
           onClick={() => {
