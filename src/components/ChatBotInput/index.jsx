@@ -80,7 +80,7 @@ const ChatBotInput = () => {
           }}
         >
           <div className="widjet_chatbot_flycatch_send-message-icon">
-            {true ? (
+            {!!userMessage.length ? (
               <svg
                 width="17"
                 height="14"
