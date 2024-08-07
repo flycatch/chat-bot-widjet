@@ -1,122 +1,3 @@
-
-.widjet_chatbot_flycatch_chat-area {
-  height: 24rem;
-  display: flex;
-  align-items: flex-start;
-  padding: 0.313rem;
-  flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  /* background-color: #dcddff; */
-
-  background: linear-gradient(180deg, #dcddff 0%, rgba(210, 211, 255, 0) 100%),
-    #ffffff;
-  /* background-image: linear-gradient(#dcddff 100% #d2d3ff 0% #ffffff); */
-  /* flex: 1 1 0%;
-  align-self: stretch; */
-}
-
-.suggest {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  justify-content: center;
-  width: 100%;
-}
-.suggest-item {
-  padding-block: 10px;
-  padding-inline: 10px;
-  border: 1px solid #080ccb;
-  border-radius: 4px;
-  color: #080ccb;
-  cursor: pointer;
-}
-.suggest-item:hover {
-  color: white;
-  background-color: #080ccb;
-}
-.widjet_chatbot_flycatch_chat-area-receiver {
-  display: flex;
-  justify-content: flex-end;
-  background-color: #080ccb;
-  word-break: break-word;
-  padding: 0.75rem;
-  border-radius: 10px 3px 10px 10px;
-  color: #ffffff;
-  margin-right: 3.063rem;
-  max-width: 14.375rem;
-  line-height: 1.25rem;
-  font-size: 0.875rem;
-  width: fit-content;
-}
-.widjet_chatbot_flycatch_receiver-div {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-top: 1.5rem;
-  /* margin-bottom: 5px; */
-}
-.widjet_chatbot_flycatch_text {
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 0.625rem;
-  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
-  border-radius: 0px 10px 10px 10px;
-  max-width: 14rem;
-  width: fit-content;
-  display: flex;
-  flex-wrap: wrap;
-  height: auto;
-  word-break: break-word;
-  background-color: #ffffff;
-  color: #1d1d1e;
-  margin-top: 0.313rem;
-  animation: fade-in-out 0.3s ease-in-out both;
-  padding: 0.7rem;
-  margin-left: 0.5rem;
-  line-height: 1.25rem;
-  font-size: 0.875rem;
-}
-
-.widjet_chatbot_flycatch_faq {
-  font-weight: 500;
-}
-
-.widjet_chatbot_flycatch_faq_answer {
-  /* border-top: 1px solid #666; */
-  margin-top: 16px;
-  /* padding-top: 8px; */
-}
-
-.widjet_chatbot_flycatch_faq_toggle {
-  align-self: flex-end;
-  font-style: italic;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.widjet_chatbot_flycatch_main-div {
-  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); */
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  border-radius: 1.25rem;
-  position: absolute;
-  bottom: 4.688rem;
-  right: 1.688rem;
-  width: 23.563rem;
-  animation: fade-in-out 0.3s ease-in-out both;
-}
-.widjet_chatbot_flycatch_sent-img {
-  width: 1.25rem;
-  /* transform: rotate(44deg); */
-  padding-top: 0.188rem;
-}
-.widjet_chatbot_flycatch_widget-icon {
-  position: relative;
-  cursor: pointer;
-}
-
 #widjet_chatbot_flycatch_custom-button {
   padding: 4px, 8px, 4px, 8px;
   color: white;
@@ -134,19 +15,6 @@
   align-items: center;
 }
 
-
-.widjet_chatbot_flycatch_avatar-chat {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin-top: 1.5rem;
-}
-.widjet_chatbot_flycatch_avatar {
-  /* width: 2rem; */
-  padding-left: 1rem;
-}
-
-
 #widjet_chatbot_flycatch_custom-button:hover {
   background-color: #e52a2b;
 }
@@ -155,15 +23,4 @@
   margin-left: 0.625rem;
   font-family: sans-serif;
   color: #aaa;
-}
-
-@keyframes fade-in-out {
-  0% {
-    transform: translate(50%);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(0%);
-    opacity: 1;
-  }
 }

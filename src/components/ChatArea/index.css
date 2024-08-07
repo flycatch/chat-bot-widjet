@@ -1,0 +1,16 @@
+.widjet_chatbot_flycatch_chat-area {
+  height: 24rem;
+  display: flex;
+  align-items: flex-start;
+  padding: 0.313rem;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* background-color: #dcddff; */
+
+  background: linear-gradient(180deg, #dcddff 0%, rgba(210, 211, 255, 0) 100%),
+    #ffffff;
+  /* background-image: linear-gradient(#dcddff 100% #d2d3ff 0% #ffffff); */
+  /* flex: 1 1 0%;
+  align-self: stretch; */
+}
