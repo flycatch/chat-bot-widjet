@@ -39,10 +39,9 @@
 .widjet_chatbot_flycatch_upload-button-div {
   display: flex;
   margin-bottom: 0.75rem;
-  /* padding-top: 4px; */
   height: 1.75rem;
-  /* align-items: center; */
 }
+
 .widjet_chatbot_flycatch_button-text-1 {
   color: #989898;
   font-size: 0.625rem;
@@ -53,10 +52,12 @@
 .widjet_chatbot_flycatch_image-upload {
   display: none;
 }
+
 .widjet_chatbot_flycatch_upload-img-icon {
   width: 1.25rem;
   display: flex;
 }
+
 .widjet_chatbot_flycatch_button-text {
   overflow-x: auto;
   height: 1.688rem;
