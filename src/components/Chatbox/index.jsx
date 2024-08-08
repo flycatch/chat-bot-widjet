@@ -1,7 +1,7 @@
 import "./index.css";
 
 import React, { useEffect, useRef, useState } from "react";
-import { get,post, put } from "../../service/apiServices";
+import { get,post, put } from "../../services/apiServices";
 
 import { ChatBotConstants } from "../../constants";
 import { env_var } from "../../config/env";

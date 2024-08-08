@@ -1,11 +1,13 @@
 import "./index.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatBotHeader from "../ChatBotHeader/index";
 import ChatBotInput from "../ChatBotInput";
 import ChatBotFooter from "../ChatBotFooter";
 import ChatArea from "../ChatArea";
 import Message from "../Message";
 import { ChatBotConstants } from "../../constants";
+import { getFaqs } from "../../services/faq";
+import { createTicket } from "../../services/report-issue";
 
 const ChatBot = ({ setActive }) => {
   const [loader, setloader] = useState(false);
