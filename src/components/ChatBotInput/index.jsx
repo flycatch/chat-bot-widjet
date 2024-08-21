@@ -2,11 +2,19 @@ import "./index.css";
 import { ChatBotConstants } from "../../constants";
 import { useState } from "react";
 
-const ChatBotInput = () => {
-    const [userMessage, setUserMessage] = useState('');
+const ChatBotInput = ({ enabled, onUserSubmit, type }) => {
+  const [userMessage, setUserMessage] = useState("");
 
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    if (!!userMessage.length) {
+      onUserSubmit(userMessage);
+      setUserMessage("");
+    }
+  }
+  console.log(type);
   const UserInputForm = (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={handleFormSubmit}>
       {/* TODO: Attachment upload
       {arrayChat.length === 9 && (
         <div>
@@ -60,24 +68,29 @@ const ChatBotInput = () => {
           placeholder={ChatBotConstants.TYPE_A_MESSAGE}
           value={userMessage}
           name="chat"
-          // type={arrayChat.length === 3 ? "email" : "text"}
+          type={type ?? "text"}
           id="email"
           onChange={(e) => {
             setUserMessage(e.target.value);
           }}
           onSubmit
+          disabled={!enabled}
         />
 
         <button
           className="widjet_chatbot_flycatch_button"
           type="submit"
           name="primary"
-          onClick={() => {
-            //   userSelection === ChatBotConstants.OPTIONS[1].id &&
-            //     (arrayChat.length > 4 ||
-            //       (arrayChat.length === 3 && validateEmail(userMessage) === true)) &&
-            //     handleSubmit();
-          }}
+          // onClick={() => {
+          //   //   userSelection === ChatBotConstants.OPTIONS[1].id &&
+          //   //     (arrayChat.length > 4 ||
+          //   //       (arrayChat.length === 3 && validateEmail(userMessage) === true)) &&
+          //   //     handleSubmit();
+          //   if (userMessage.length) {
+          //     onUserSubmit(userMessage);
+          //     setUserMessage("");
+          //   }
+          // }}
         >
           <div className="widjet_chatbot_flycatch_send-message-icon">
             {!!userMessage.length ? (
