@@ -95,7 +95,7 @@
   cursor: pointer;
 }
 
-.suggest-item:hover {
+.suggest-item:not([disabled]):hover {
   color: white;
   background-color: #080ccb;
 }

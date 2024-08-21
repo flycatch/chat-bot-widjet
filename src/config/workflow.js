@@ -17,8 +17,8 @@ const init = [
       {
         id: "option-1",
         name: "FAQ",
-        workflow: null,
-        next: null,
+        workflow: "faq",
+        next: 0,
       },
       {
         id: "option-2",
@@ -37,7 +37,7 @@ const reportIssue = [
     text: ChatBotConstants.EMAIL_REQUEST,
     waitForUserInput: true,
     responseKey: "email",
-    inputValidationType: "email"
+    inputValidationType: "email",
   },
   {
     id: 2,
@@ -63,8 +63,38 @@ const reportIssue = [
   {
     id: 5,
     type: "report-issue",
-    text: '',
+    text: "",
     waitForUserInput: false,
+  },
+];
+
+const faq = [
+  {
+    id: 1,
+    type: "faqs",
+    text: "",
+    waitForUserInput: false,
+  },
+  {
+    id: 2,
+    type: "prompt",
+    text: ChatBotConstants.FAQ_CONFIRMATION,
+    waitForUserInput: true,
+    responseKey: null,
+    options: [
+      {
+        id: "option-1",
+        name: "Yes",
+        workflow: null,
+        next: null,
+      },
+      {
+        id: "option-2",
+        name: "No, Report Issue",
+        workflow: "reportIssue",
+        next: 0,
+      },
+    ],
   },
 ];
 
@@ -73,6 +103,7 @@ const workflowConfig = {
   workflows: {
     init,
     reportIssue,
+    faq,
   },
 };
 
