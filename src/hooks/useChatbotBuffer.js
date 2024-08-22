@@ -5,7 +5,8 @@ export const useChatbotBuffer = () => {
   const [userInputs, setUserInputs] = useState({});
 
   const addMessageToBuffer = (message) => {
-    setBuffer((prev) => [...prev, message]);
+    if (Array.isArray(message)) setBuffer((prev) => [...prev, ...message]);
+    else setBuffer((prev) => [...prev, message]);
   };
 
   const addUserInput = (key, value) => {

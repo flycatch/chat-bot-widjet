@@ -86,7 +86,7 @@ const faq = [
         id: "option-1",
         name: "Yes",
         workflow: null,
-        next: null,
+        next: 2,
       },
       {
         id: "option-2",
@@ -95,6 +95,12 @@ const faq = [
         next: 0,
       },
     ],
+  },
+  {
+    id: 3,
+    type: "greeting",
+    text: ChatBotConstants.THANK_YOU,
+    waitForUserInput: false,
   },
 ];
 

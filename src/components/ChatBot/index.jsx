@@ -12,7 +12,7 @@ import workflowConfig from "../../config/workflow";
 import { useChatbotBuffer } from "../../hooks/useChatbotBuffer";
 
 const ChatBot = ({ setActive }) => {
-  const [loader, setloader] = useState(false);
+  const [loader, setLoader] = useState(false);
   const { workflows } = workflowConfig;
   const [currentWFStep, setCurrentWFStep] = useState(null);
   const [currentWFStepCount, setCurrentWFStepCount] = useState(null);
@@ -46,6 +46,9 @@ const ChatBot = ({ setActive }) => {
       setCurrentWorkFlow(workflows[option.workflow]);
       setCurrentWFStepCount(0);
       setCurrentWFStep(workflows[option.workflow][0]);
+    } else if(option.next != null){
+      setCurrentWFStepCount(option.next);
+      setCurrentWFStep(currentWorkFlow[option.next]);
     }
   };
 
@@ -58,7 +61,24 @@ const ChatBot = ({ setActive }) => {
     nextStep();
   };
 
+  const generateFAQs = async () => {
+    setLoader(true);
+    const { data: faqs } = await getFaqs();
+    const FAQMessages = faqs.map((faq) => (
+      <Message
+        key={faq._id}
+        sender="BOT"
+        message={faq.question}
+        answer={faq.answer}
+      />
+    ));
+    setLoader(false);
+    addMessageToBuffer(FAQMessages);
+    nextStep();
+  };
+
   const reportIssue = async () => {
+    setLoader(true);
     const { email, fullname, subject, issue } = userInputs;
     const reportIssueData = {
       user: {
@@ -71,20 +91,30 @@ const ChatBot = ({ setActive }) => {
       },
       // captcha: "rROB",
     };
-
-    const {
-      ticket: { uid },
-      userData: {
-        savedUser: { username },
-      },
-    } = await createTicket(reportIssueData);
-    const responseMessage = (
-      <Message
-        sender="BOT"
-        message={ChatBotConstants.TICKET_NUMBER_RESPONSE(uid, username)}
-      />
-    );
-    addMessageToBuffer(responseMessage);
+    let responseMessage;
+    try {
+      const {
+        ticket: { uid },
+        userData: {
+          savedUser: { username },
+        },
+      } = await createTicket(reportIssueData);
+      responseMessage = (
+        <Message
+          sender="BOT"
+          message={ChatBotConstants.TICKET_NUMBER_RESPONSE(uid, username)}
+        />
+      );
+    } catch (_) {
+      responseMessage = (
+        <Message sender="BOT" message={ChatBotConstants.ERROR_RESPONSE} />
+      );
+    } finally{
+      setLoader(false);
+      addMessageToBuffer(responseMessage);
+      nextStep();
+    }
+    
   };
 
   useEffect(() => {
@@ -110,8 +140,14 @@ const ChatBot = ({ setActive }) => {
       } else if (currentWFStep.type === "report-issue") {
         setTextBoxEnabled(false);
         reportIssue();
+      } else if (currentWFStep.type === "faqs") {
+        setTextBoxEnabled(false);
+        generateFAQs();
       }
-      if (currentWFStep.type !== "report-issue") {
+      if (
+        currentWFStep.type !== "report-issue" &&
+        currentWFStep.type !== "faqs"
+      ) {
         addMessageToBuffer(messageComponent);
         if (currentWFStep.waitForUserInput) {
           if (!currentWFStep?.options?.length) setTextBoxEnabled(true);

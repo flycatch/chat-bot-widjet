@@ -12,7 +12,7 @@ const ChatBotInput = ({ enabled, onUserSubmit, type }) => {
       setUserMessage("");
     }
   }
-  console.log(type);
+
   const UserInputForm = (
     <form onSubmit={handleFormSubmit}>
       {/* TODO: Attachment upload
@@ -81,16 +81,6 @@ const ChatBotInput = ({ enabled, onUserSubmit, type }) => {
           className="widjet_chatbot_flycatch_button"
           type="submit"
           name="primary"
-          // onClick={() => {
-          //   //   userSelection === ChatBotConstants.OPTIONS[1].id &&
-          //   //     (arrayChat.length > 4 ||
-          //   //       (arrayChat.length === 3 && validateEmail(userMessage) === true)) &&
-          //   //     handleSubmit();
-          //   if (userMessage.length) {
-          //     onUserSubmit(userMessage);
-          //     setUserMessage("");
-          //   }
-          // }}
         >
           <div className="widjet_chatbot_flycatch_send-message-icon">
             {!!userMessage.length ? (
