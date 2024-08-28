@@ -18,6 +18,8 @@ export const ChatBotConstants = {
       <br />
     </div>
   ),
+  GREET:"Welcome to Flycatch!",
+  ASSIST_OPTION_REQ:"How may we assist you today?",
   TITLE_REQUEST: "Great, What is the subject or issue you are experiencing?",
   USER_NAME_REQUEST: "Could you also please provide your full name?",
   EMAIL_REQUEST: "What is your email address?",
