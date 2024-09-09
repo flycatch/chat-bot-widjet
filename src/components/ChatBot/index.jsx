@@ -7,6 +7,7 @@ import ChatArea from "../ChatArea";
 import Message from "../Message";
 import { ChatBotConstants } from "../../constants";
 import { getFaqs } from "../../services/faq";
+import { getSearchResults } from "../../services/search";
 import { createTicket } from "../../services/report-issue";
 import workflowConfig from "../../config/workflow";
 import { useChatbotBuffer } from "../../hooks/useChatbotBuffer";
@@ -30,10 +31,17 @@ const ChatBot = ({ setActive }) => {
   useEffect(() => alwaysScrollToBottom(), [buffer.length]);
 
   const nextStep = () => {
-    setCurrentWFStepCount((step) => {
-      setCurrentWFStep(currentWorkFlow[step + 1]);
-      return step + 1;
-    });
+    if (!currentWFStep.isEnd) {
+      if (currentWFStep.next) {
+        setCurrentWFStepCount(currentWFStep.next);
+        setCurrentWFStep(currentWorkFlow[currentWFStep.next]);
+      } else {
+        setCurrentWFStepCount((step) => {
+          setCurrentWFStep(currentWorkFlow[step + 1]);
+          return step + 1;
+        });
+      }
+    }
   };
 
   const onOptionSelect = (option) => {
@@ -46,7 +54,7 @@ const ChatBot = ({ setActive }) => {
       setCurrentWorkFlow(workflows[option.workflow]);
       setCurrentWFStepCount(0);
       setCurrentWFStep(workflows[option.workflow][0]);
-    } else if(option.next != null){
+    } else if (option.next != null) {
       setCurrentWFStepCount(option.next);
       setCurrentWFStep(currentWorkFlow[option.next]);
     }
@@ -61,8 +69,26 @@ const ChatBot = ({ setActive }) => {
     nextStep();
   };
 
-  const generateFAQs = async () => {
+  // const generateFAQs = async () => {
+  //   setLoader(true);
+  //   const { data: faqs } = await getFaqs();
+  //   const FAQMessages = faqs.map((faq) => (
+  //     <Message
+  //       key={faq._id}
+  //       sender="BOT"
+  //       message={faq.question}
+  //       answer={faq.answer}
+  //     />
+  //   ));
+  //   setLoader(false);
+  //   addMessageToBuffer(FAQMessages);
+  //   nextStep();
+  // };
+
+  const generateSearchResults = async () => {
     setLoader(true);
+    // const searchResult = await getSearchResults(userInputs.query)
+    // console.log(searchResult);
     const { data: faqs } = await getFaqs();
     const FAQMessages = faqs.map((faq) => (
       <Message
@@ -109,12 +135,11 @@ const ChatBot = ({ setActive }) => {
       responseMessage = (
         <Message sender="BOT" message={ChatBotConstants.ERROR_RESPONSE} />
       );
-    } finally{
+    } finally {
       setLoader(false);
       addMessageToBuffer(responseMessage);
       nextStep();
     }
-    
   };
 
   useEffect(() => {
@@ -140,13 +165,19 @@ const ChatBot = ({ setActive }) => {
       } else if (currentWFStep.type === "report-issue") {
         setTextBoxEnabled(false);
         reportIssue();
-      } else if (currentWFStep.type === "faqs") {
+      } 
+      // else if (currentWFStep.type === "faqs") {
+      //   setTextBoxEnabled(false);
+      //   generateFAQs();
+      // }
+      else if (currentWFStep.type === "embeddedSearch") {
         setTextBoxEnabled(false);
-        generateFAQs();
+        generateSearchResults();
       }
       if (
         currentWFStep.type !== "report-issue" &&
-        currentWFStep.type !== "faqs"
+        // currentWFStep.type !== "faqs"
+        currentWFStep.type !== "embeddedSearch"
       ) {
         addMessageToBuffer(messageComponent);
         if (currentWFStep.waitForUserInput) {

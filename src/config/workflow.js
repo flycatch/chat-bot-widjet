@@ -12,21 +12,75 @@ const init = [
     type: "prompt",
     text: ChatBotConstants.ASSIST_OPTION_REQ,
     waitForUserInput: true,
+    responseKey: "query",
+    // options: [
+    //   {
+    //     id: "option-1",
+    //     name: "FAQ",
+    //     workflow: "faq",
+    //     next: 0,
+    //   },
+    //   {
+    //     id: "option-2",
+    //     name: "Report Issue",
+    //     workflow: "reportIssue",
+    //     next: 0,
+    //   },
+    // ],
+  },
+  // {
+  //   id: 3,
+  //   type: "greeting",
+  //   text: "override",
+  //   waitForUserInput: false,
+  // },
+  {
+    id: 3,
+    type: "embeddedSearch",
+    text:"",
+    waitForUserInput: false
+  },
+  {
+    id: 4,
+    type: "prompt",
+    text: ChatBotConstants.RESOLUTION_PROMPT,
+    waitForUserInput: true,
     responseKey: null,
     options: [
       {
         id: "option-1",
-        name: "FAQ",
-        workflow: "faq",
-        next: 0,
+        name: "Yes",
+        workflow: null,
+        next: 5,
       },
       {
         id: "option-2",
+        name: "No",
+        workflow: null,
+        next: 4,
+      },
+      {
+        id: "option-3",
         name: "Report Issue",
         workflow: "reportIssue",
         next: 0,
       },
     ],
+  },
+  {
+    id: 5,
+    type: "prompt",
+    text: ChatBotConstants.RE_SEARCH_REQ,
+    waitForUserInput: true,
+    responseKey: "query",
+    next: 2,
+  },
+  {
+    id: 6,
+    type: "greeting",
+    text: ChatBotConstants.THANK_YOU,
+    waitForUserInput: false,
+    isEnd: true,
   },
 ];
 
