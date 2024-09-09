@@ -18,9 +18,9 @@ export const ChatBotConstants = {
       <br />
     </div>
   ),
-  GREET:"Welcome to Flycatch!",
-  ASSIST_OPTION_REQ:"How may we assist you today?",
-  RE_SEARCH_REQ:"Could you rephrase your query?",
+  GREET: "Welcome to Flycatch!",
+  ASSIST_OPTION_REQ: "How may we assist you today?",
+  RE_SEARCH_REQ: "Could you rephrase your query?",
   TITLE_REQUEST: "Great, What is the subject or issue you are experiencing?",
   RESOLUTION_PROMPT: "Is your issue resolved or doyou want to report an issue?",
   USER_NAME_REQUEST: "Could you also please provide your full name?",
@@ -39,7 +39,7 @@ export const ChatBotConstants = {
         {ticketId}
       </a>
       <br />
-      {`You can login to truedesk using the user name: ${userName}`}
+      {`You can login to truedesk using the user name: ${userName} to view the ticket details and upload attachments.`}
     </div>
   ),
   CHAT: "Alpha",
@@ -59,9 +59,9 @@ export const ChatBotConstants = {
       title: "Report Issue",
     },
   ],
-  ERROR_RESPONSE:"There has been an issue creating your ticket",
-  FAQ_CONFIRMATION:"Is your query resolved?",
-  THANK_YOU:"Thank you for using the chat bot",
+  ERROR_RESPONSE: "There has been an issue creating your ticket",
+  FAQ_CONFIRMATION: "Is your query resolved?",
+  THANK_YOU: "Thank you for using the chat bot",
   FAQ_RESOLUTION_OPTIONS: [
     {
       id: "RESOLVED",
