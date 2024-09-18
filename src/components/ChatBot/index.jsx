@@ -87,15 +87,13 @@ const ChatBot = ({ setActive }) => {
 
   const generateSearchResults = async () => {
     setLoader(true);
-    // const searchResult = await getSearchResults(userInputs.query)
-    // console.log(searchResult);
-    const { data: faqs } = await getFaqs();
-    const FAQMessages = faqs.map((faq) => (
+    const {results} = await getSearchResults(userInputs.query)
+    const FAQMessages = results.map(({source}) => (
       <Message
-        key={faq._id}
+        key={source._id}
         sender="BOT"
-        message={faq.question}
-        answer={faq.answer}
+        message={source.question}
+        answer={source.answer}
       />
     ));
     setLoader(false);
