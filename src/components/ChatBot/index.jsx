@@ -48,7 +48,7 @@ const ChatBot = ({ setActive }) => {
     if (currentWFStep.responseKey != null) {
       addUserInput(currentWFStep.responseKey, option.name);
     }
-    const userOptionMessage = <Message sender="USER" message={option.name} />;
+    const userOptionMessage = <Message sender="USER" message={option.name} key={new Date()} />;
     addMessageToBuffer(userOptionMessage);
     if (option.workflow) {
       setCurrentWorkFlow(workflows[option.workflow]);
