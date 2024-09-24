@@ -73,7 +73,9 @@ const init = [
     text: ChatBotConstants.RE_SEARCH_REQ,
     waitForUserInput: true,
     responseKey: "query",
-    next: 2,
+    next: {
+      onSuccess: 2
+    },
   },
   {
     id: 6,
@@ -116,10 +118,52 @@ const reportIssue = [
   },
   {
     id: 5,
+    type:"send-otp",
+    waitForUserInput: false,
+    next: {
+      onSuccess: 5, //if verified session
+      onFailure: 6 //if session unverified
+    }
+  },
+  {
+    id: 6,
     type: "report-issue",
     text: "",
     waitForUserInput: false,
+    isEnd: true,
   },
+  {
+    id: 7,
+    type: "prompt",
+    text: ChatBotConstants.OTP_REQ,
+    waitForUserInput: true,
+    responseKey: "otp",
+    options: [
+      {
+        id: "option-1",
+        name: "Resend",
+        workflow: null,
+        next: 4,
+      }
+    ]
+  },
+  {
+    id: 8,
+    type:"verify-otp",
+    waitForUserInput: false,
+    next: {
+      onSuccess: 5, 
+      onFailure: 8
+    }
+  },
+  {
+    id: 9,
+    type: "greeting",
+    text: ChatBotConstants.OTP_FAIL_VERIFY,
+    next: {
+      onSuccess: 4
+    }
+  }
 ];
 
 const faq = [

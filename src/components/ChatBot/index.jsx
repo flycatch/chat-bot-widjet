@@ -6,7 +6,7 @@ import ChatBotFooter from "../ChatBotFooter";
 import ChatArea from "../ChatArea";
 import Message from "../Message";
 import { ChatBotConstants } from "../../constants";
-import { getFaqs } from "../../services/faq";
+import { sendOTPInMail, verifyEmail } from "../../services/otp";
 import { getSearchResults } from "../../services/search";
 import { createTicket } from "../../services/report-issue";
 import workflowConfig from "../../config/workflow";
@@ -30,11 +30,13 @@ const ChatBot = ({ setActive }) => {
 
   useEffect(() => alwaysScrollToBottom(), [buffer.length]);
 
-  const nextStep = () => {
+  const nextStep = (isSuccess = true) => {
     if (!currentWFStep.isEnd) {
       if (currentWFStep.next) {
-        setCurrentWFStepCount(currentWFStep.next);
-        setCurrentWFStep(currentWorkFlow[currentWFStep.next]);
+        const{onSuccess, onFailure} = currentWFStep.next;
+        const nextStep = isSuccess ? onSuccess : onFailure;
+        setCurrentWFStepCount(nextStep);
+        setCurrentWFStep(currentWorkFlow[nextStep]);
       } else {
         setCurrentWFStepCount((step) => {
           setCurrentWFStep(currentWorkFlow[step + 1]);
@@ -100,6 +102,31 @@ const ChatBot = ({ setActive }) => {
     addMessageToBuffer(FAQMessages);
     nextStep();
   };
+
+  const sendOTP = async() => {
+    setLoader(true);
+    try{
+      const {success, verified} = await sendOTPInMail(userInputs.email);
+      nextStep(Boolean(verified) && success);
+    } catch(error) {
+      addMessageToBuffer(<Message sender="BOT" message={ChatBotConstants.OTP_SEND_ERR} />)
+    } finally{
+      setLoader(false);
+    }
+  }
+
+  const verifyOTP = async() => {
+    setLoader(true);
+    try{
+      await verifyEmail(userInputs.email, userInputs.otp);
+      nextStep(true);
+    } catch(error) {
+      // addMessageToBuffer(<Message sender="BOT" message={ChatBotConstants.OTP_SEND_ERR} />)
+      nextStep(false)
+    } finally{
+      setLoader(false);
+    }
+  }
 
   const reportIssue = async () => {
     setLoader(true);
@@ -172,14 +199,24 @@ const ChatBot = ({ setActive }) => {
         setTextBoxEnabled(false);
         generateSearchResults();
       }
+      else if(currentWFStep.type === "send-otp") {
+        setTextBoxEnabled(false);
+        sendOTP();
+      }
+      else if(currentWFStep.type === "verify-otp") {
+        setTextBoxEnabled(false);
+        verifyOTP();
+      }
       if (
         currentWFStep.type !== "report-issue" &&
-        // currentWFStep.type !== "faqs"
-        currentWFStep.type !== "embeddedSearch"
+        currentWFStep.type !== "send-otp" &&
+        currentWFStep.type !== "embeddedSearch" &&
+        currentWFStep.type !== "verify-otp"
+
       ) {
         addMessageToBuffer(messageComponent);
         if (currentWFStep.waitForUserInput) {
-          if (!currentWFStep?.options?.length) setTextBoxEnabled(true);
+          if (!currentWFStep?.options?.length || currentWFStep?.options?.length === 1) setTextBoxEnabled(true);
           else setTextBoxEnabled(false);
         } else {
           nextStep();
