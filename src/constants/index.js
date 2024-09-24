@@ -21,11 +21,14 @@ export const ChatBotConstants = {
   GREET: "Welcome to Flycatch!",
   ASSIST_OPTION_REQ: "How may we assist you today?",
   RE_SEARCH_REQ: "Could you rephrase your query?",
+  OTP_REQ: "Please enter the OTP send to you email.",
+  OTP_FAIL_VERIFY: "OTP verification failed. New OTP send to you email.",
+  OTP_SEND_ERR: "Error sending the OTP.",
   TITLE_REQUEST: "Great, What is the subject or issue you are experiencing?",
   RESOLUTION_PROMPT: "Is your issue resolved or do you want to report an issue?",
   USER_NAME_REQUEST: "Could you also please provide your full name?",
   EMAIL_REQUEST: "What is your email address?",
-  DESCRIPTION_REQUEST: "Please describe the issue",
+  DESCRIPTION_REQUEST: "Please describe the issue.",
   TICKET_NUMBER_RESPONSE: (ticketId, userName) => (
     <div>
       Your issue has been submitted.
@@ -59,9 +62,9 @@ export const ChatBotConstants = {
       title: "Report Issue",
     },
   ],
-  ERROR_RESPONSE: "There has been an issue creating your ticket",
+  ERROR_RESPONSE: "There has been an issue creating your ticket.",
   FAQ_CONFIRMATION: "Is your query resolved?",
-  THANK_YOU: "Thank you for using the chat bot",
+  THANK_YOU: "Thank you for using the chat bot.",
   FAQ_RESOLUTION_OPTIONS: [
     {
       id: "RESOLVED",

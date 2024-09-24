@@ -82,7 +82,6 @@
   display: flex;
   gap: 10px;
   margin-top: 10px;
-  justify-content: center;
   width: 100%;
 }
 
@@ -93,6 +92,10 @@
   border-radius: 4px;
   color: #080ccb;
   cursor: pointer;
+}
+
+.suggest-item:first-child {
+  margin-left: 75px;
 }
 
 .suggest-item:not([disabled]):hover {
