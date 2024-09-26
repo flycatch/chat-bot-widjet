@@ -121,8 +121,14 @@ const reportIssue = [
     type:"send-otp",
     waitForUserInput: false,
     next: {
-      onSuccess: 5, //if verified session
-      onFailure: 6 //if session unverified
+      // onSuccess: 5, //if verified session
+      // onFailure: 6 //if session unverified
+      onSuccess: (args) => {
+        const {isSessionVerified, isFirstTry} = args;
+        if(isSessionVerified) return 5;
+        if(isFirstTry) return 10;
+        return 9;
+      },
     }
   },
   {
@@ -162,6 +168,22 @@ const reportIssue = [
     text: ChatBotConstants.OTP_FAIL_VERIFY,
     next: {
       onSuccess: 4
+    }
+  },
+  {
+    id: 10,
+    type: "greeting",
+    text: ChatBotConstants.OTP_SENT,
+    next: {
+      onSuccess: 6
+    }
+  },
+  {
+    id: 11,
+    type: "greeting",
+    text: ChatBotConstants.FIRST_OTP_SENT,
+    next: {
+      onSuccess: 6
     }
   }
 ];
