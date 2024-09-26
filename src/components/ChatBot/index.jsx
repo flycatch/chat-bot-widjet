@@ -30,13 +30,19 @@ const ChatBot = ({ setActive }) => {
 
   useEffect(() => alwaysScrollToBottom(), [buffer.length]);
 
-  const nextStep = (isSuccess = true) => {
+  const nextStep = (isSuccess = true, args = {}) => {
     if (!currentWFStep.isEnd) {
       if (currentWFStep.next) {
         const{onSuccess, onFailure} = currentWFStep.next;
         const nextStep = isSuccess ? onSuccess : onFailure;
-        setCurrentWFStepCount(nextStep);
-        setCurrentWFStep(currentWorkFlow[nextStep]);
+        if (typeof nextStep === "function") {
+          const nextStepValue = nextStep(args)
+          setCurrentWFStepCount(nextStepValue);
+          setCurrentWFStep(currentWorkFlow[nextStepValue]);
+        } else {
+          setCurrentWFStepCount(nextStep);
+          setCurrentWFStep(currentWorkFlow[nextStep]);
+        }
       } else {
         setCurrentWFStepCount((step) => {
           setCurrentWFStep(currentWorkFlow[step + 1]);
@@ -106,10 +112,18 @@ const ChatBot = ({ setActive }) => {
   const sendOTP = async() => {
     setLoader(true);
     try{
-      const {success, verified} = await sendOTPInMail(userInputs.email);
-      nextStep(Boolean(verified) && success);
+      const {success, verified = false, limit, remainingRetries} = await sendOTPInMail(userInputs.email);
+      nextStep(true, {isSessionVerified: Boolean(verified) && success, isFirstTry: limit - remainingRetries === 1});
     } catch(error) {
-      addMessageToBuffer(<Message sender="BOT" message={ChatBotConstants.OTP_SEND_ERR} />)
+      let errorMessage = ChatBotConstants.OTP_SEND_GEN_ERR;
+      if(error.response) {
+        if(error.response.status === 429) {
+          const {data: {remainingRetries, retryAfter}} = error.response;
+          if(remainingRetries === 0)
+            errorMessage = ChatBotConstants.OTP_EXHAUST_ERR(retryAfter/60);
+        }
+      }
+      addMessageToBuffer(<Message sender="BOT" message={errorMessage} />);
     } finally{
       setLoader(false);
     }
@@ -121,7 +135,6 @@ const ChatBot = ({ setActive }) => {
       await verifyEmail(userInputs.email, userInputs.otp);
       nextStep(true);
     } catch(error) {
-      // addMessageToBuffer(<Message sender="BOT" message={ChatBotConstants.OTP_SEND_ERR} />)
       nextStep(false)
     } finally{
       setLoader(false);
