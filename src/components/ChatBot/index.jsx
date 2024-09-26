@@ -95,8 +95,8 @@ const ChatBot = ({ setActive }) => {
 
   const generateSearchResults = async () => {
     setLoader(true);
-    const {results} = await getSearchResults(userInputs.query)
-    const FAQMessages = results.map(({source}) => (
+    const { results } = await getSearchResults(userInputs.query);
+    const FAQMessages = results.map(({ source }) => (
       <Message
         key={source._id}
         sender="BOT"
@@ -105,11 +105,14 @@ const ChatBot = ({ setActive }) => {
       />
     ));
     setLoader(false);
-    addMessageToBuffer(<Message
-      key={new Date()}
-      sender="BOT"
-      message={ChatBotConstants.SEARCH_RESULTS}
-    />,[...FAQMessages]);
+    addMessageToBuffer([
+      <Message
+        key={new Date()}
+        sender="BOT"
+        message={ChatBotConstants.SEARCH_RESULTS}
+      />,
+      ...FAQMessages,
+    ]);
     nextStep();
   };
 
