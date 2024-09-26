@@ -105,7 +105,11 @@ const ChatBot = ({ setActive }) => {
       />
     ));
     setLoader(false);
-    addMessageToBuffer(FAQMessages);
+    addMessageToBuffer(<Message
+      key={new Date()}
+      sender="BOT"
+      message={ChatBotConstants.SEARCH_RESULTS}
+    />,[...FAQMessages]);
     nextStep();
   };
 

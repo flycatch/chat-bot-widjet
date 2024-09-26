@@ -31,6 +31,7 @@ export const ChatBotConstants = {
   RESOLUTION_PROMPT: "Is your issue resolved or do you want to report an issue?",
   USER_NAME_REQUEST: "Could you also please provide your full name?",
   EMAIL_REQUEST: "What is your email address?",
+  SEARCH_RESULTS: "Here are the results that match your query/issue.",
   DESCRIPTION_REQUEST: "Please describe the issue.",
   TICKET_NUMBER_RESPONSE: (ticketId, userName) => (
     <div>
