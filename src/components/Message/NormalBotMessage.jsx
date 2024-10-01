@@ -2,9 +2,9 @@ const NormalBotMessage = ({ message }) => (
   <div className="widjet_chatbot_flycatch_avatar-chat">
     <div className="widjet_chatbot_flycatch_avatar">
       <svg
-        width="41"
-        height="41"
-        viewBox="0 0 41 41"
+        width="40"
+        height="40"
+        viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >

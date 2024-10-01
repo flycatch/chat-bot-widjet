@@ -4,7 +4,7 @@
   justify-content: flex-end;
   background-color: #080ccb;
   word-break: break-word;
-  padding: 0.75rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 10px 3px 10px 10px;
   color: #ffffff;
   margin-right: 3.063rem;
@@ -18,8 +18,8 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  margin-top: 1.5rem;
-  /* margin-bottom: 5px; */
+  margin-top: 0.5rem;
+  margin-bottom: 0.15rem;
 }
 
 /* Bot Message */
@@ -27,7 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 1.5rem;
+  /* margin-top: 0.2rem; */
 }
 
 .widjet_chatbot_flycatch_avatar {
@@ -52,7 +52,7 @@
   color: #1d1d1e;
   margin-top: 0.313rem;
   animation: fade-in-out 0.3s ease-in-out both;
-  padding: 0.7rem;
+  padding: 0.4rem 0.7rem;
   margin-left: 0.5rem;
   line-height: 1.25rem;
   font-size: 0.875rem;
@@ -81,7 +81,7 @@
 .suggest {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 8px;
   width: 100%;
 }
 
