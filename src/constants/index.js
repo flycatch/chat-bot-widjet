@@ -26,7 +26,7 @@ export const ChatBotConstants = {
   OTP_SENT: "A new OTP has been sent to your email.",
   OTP_FAIL_VERIFY: "OTP verification failed.",
   OTP_SEND_GEN_ERR: "Error sending the OTP.",
-  OTP_EXHAUST_ERR: (time) => `You’ve reached the OTP verification limit. Please retry after ${time} minutes.`,
+  OTP_EXHAUST_ERR: (time) => `You have reached the OTP verification limit. Please retry after ${time} minutes.`,
   TITLE_REQUEST: "Great, What is the subject or issue you are experiencing?",
   RESOLUTION_PROMPT: "Is your issue resolved or do you want to report an issue?",
   USER_NAME_REQUEST: "Could you also please provide your full name?",
